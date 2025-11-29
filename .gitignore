@@ -146,4 +146,4 @@ cython_debug/
 
 # Project specific
 .serena/
-
+_others
