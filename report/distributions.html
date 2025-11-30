@@ -7927,9 +7927,9 @@ Percentage deviation: 0.0684%
 </li>
 <li><p>$x &gt; b$ (Right of the domain)</p>
 <p>We split the integration domain into 3 parts covering the entire possible value range $[a, b]$.</p>
-<p>$$F(x) = \underbrace{\int_{-\infty}^{a} 0 , dt}{=0} + \underbrace{\int{a}^{b} \frac{1}{b-a} , dt}{\text{Total Probability}} + \underbrace{\int{b}^{x} 0 , dt}{=0} = \left[ \frac{t}{b-a} \right]{a}^{b} = \frac{b}{b-a} - \frac{a}{b-a} = \frac{b-a}{b-a} = 1 $$</p>
 </li>
 </ul>
+<p>$$F(x) = \int_{-\infty}^{a} 0 \, dt + \int_{a}^{b} \frac{1}{b-a} \, dt + \int_{b}^{x} 0 \, dt = \left[ \frac{t}{b-a} \right]_{a}^{b} = \frac{b}{b-a} - \frac{a}{b-a} = \frac{b-a}{b-a} = 1$$</p>
 <p><strong>Expectation ($\mu_X$):</strong></p>
 <p>According to the definition of expectation for continuous variables: $\mathbb{E}[X] = \int_{-\infty}^{+\infty} x \cdot p(x) dx$.</p>
 <p>Since $p(x)$ is non-zero only in the interval $[a, b]$:</p>
@@ -8266,7 +8266,13 @@ e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if 
 <p>$$\Rightarrow P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \quad \text{(Required to be proved)}$$</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>Need to prove:</p>
-<p>$$F(x) = \begin{cases} 0 &amp; \text{if } x \&lt; 0 e^{-\lambda} \sum\_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k\!} &amp; \text{if } x \ge 0 \end{cases}$$</p>
+<p>$$F(x) = \begin{cases}
+
+0 &amp; \text{if } x &lt; 0 \\
+
+e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if } x \ge 0
+
+\end{cases}$$</p>
 <p>We start from the original definition of the cumulative distribution function:</p>
 <p>$$F(x) = P(X \le x)$$</p>
 <p>The Poisson random variable $X$ only takes non-negative integer values: $\{0, 1, 2, \dots\}$.</p>
