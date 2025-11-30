@@ -7755,13 +7755,47 @@ Email 5: SPAM (p=0.60)
 <p>Since there are $n$ values and equal probability, the probability of each value is $\frac{1}{n}$.</p>
 <p>$$p_i = P(X=i) = \frac{1}{n} \quad \text{for } i \in \{1, 2, ..., n\}$$</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
-<p>This function accumulates probability. For any integer value $k$ in the range $[1, n]$:</p>
-<p>$$F(k) = P(X \le k) = \sum_{i=1}^k P(X=i) = \sum_{i=1}^k \frac{1}{n} = \frac{k}{n}$$</p>
+<p>$$F(x) = \begin{cases}
+
+0 &amp; x &lt; 1 \\
+
+\frac{\lfloor x \rfloor}{n} &amp; 1 \le x &lt; n \\
+
+1 &amp; x \ge n
+
+\end{cases}$$</p>
+<p>$\lfloor x \rfloor$ is the floor value of x</p>
 <p><strong>Mean (Expectation):</strong></p>
 <p>$$\mu_X = \frac{n+1}{2}$$</p>
 <p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = \frac{n^2-1}{12}$$</p>
-<h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><p><strong>Expectation ($\mu_X$):</strong></p>
+<h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><h3 id="Cumulative-Distribution-Function-(PDF):">Cumulative Distribution Function (PDF):<a class="anchor-link" href="#Cumulative-Distribution-Function-(PDF):">¶</a></h3><p>Suppose we have a random variable $X$ following a discrete uniform distribution on the set of integers $\{1, 2, \dots, n\}$.</p>
+<p>The probability mass function (PMF): $P(X=k) = \frac{1}{n}$ for all $k \in \{1, \dots, n\}$.</p>
+<p>According to the CDF definition:</p>
+<p>$$F(x) = \begin{cases}
+   0 &amp; x &lt; 1 \\
+   \frac{\lfloor x \rfloor}{n} &amp; 1 \le x &lt; n \\
+   1 &amp; x \ge n
+\end{cases}$$</p>
+<p>We consider 3 cases of $x$ on the real number line:</p>
+<p>Case 1: $x &lt; 1$</p>
+<p>Random variable $X$ only takes values from $1$ onwards.</p>
+<p>Therefore, there is no value of $X$ satisfying smaller than $x$ (when $x &lt; 1$).</p>
+<p>The event $\{X \le x\}$ is an empty set.</p>
+<p>$$F(x) = 0$$</p>
+<p>Case 2: $1 \le x &lt; n$</p>
+<p>This is the most interesting part using the floor function.</p>
+<p>We need to calculate the sum of probabilities of all integer values $k$ such that $1 \le k \le x$.</p>
+<p>Since $k$ must be an integer, the condition $k \le x$ is equivalent to $k \le \lfloor x \rfloor$ (the largest integer not exceeding $x$).</p>
+<p>Thus the valid values of $X$ are: $\{1, 2, \dots, \lfloor x \rfloor\}$.</p>
+<p>The quantity of these values is exactly $\lfloor x \rfloor$.</p>
+<p>Since each value has a probability equal to $\frac{1}{n}$, we have:</p>
+<p>$$F(x) = \underbrace{\frac{1}{n} + \frac{1}{n} + \dots + \frac{1}{n}}_{\lfloor x \rfloor \text{ times}} = \lfloor x \rfloor \cdot \frac{1}{n} = \frac{\lfloor x \rfloor}{n}$$</p>
+<p>Case 3: $x \ge n$</p>
+<p>When $x \ge n$, the cumulative interval $(-\infty, x]$ has covered the entire set of possible values $\{1, 2, \dots, n\}$ of the random variable.</p>
+<p>The total probability of the entire sample space is always 1.</p>
+<p>$$F(x) = 1$$</p>
+<p><strong>Expectation ($\mu_X$):</strong></p>
 <p>We have:</p>
 <p>$$\mathbb{E}[X] = \sum_{x_i=1}^n x_i \cdot P(X=x_i)$$</p>
 <p>Substituting $P(X=i) = \frac{1}{n}$, we get:</p>
@@ -8041,7 +8075,7 @@ Actual Mean (expected is 0): 0.0013
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.4.-Binomial-Distribution">2.4. Binomial Distribution<a class="anchor-link" href="#2.4.-Binomial-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>is a discrete probability distribution with two parameters $n$ and $p$, denoting the number of successes in $n$ independent trials seeking a yes/no success result. (wikipedia)</p>
+<h2 id="2.4.-Binomial-Distribution">2.4. Binomial Distribution<a class="anchor-link" href="#2.4.-Binomial-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>it is a discrete probability distribution with two parameters $n$ and $p$, denoting the number of successes in $n$ independent trials seeking a yes/no success result.</p>
 <p>Imagine you don't just toss a coin once (Bernoulli), but toss $n$ times consecutively and independently. You count how many times heads appear.</p>
 <p>Let $X_i$ be the result of the $i$-th toss (1 if heads, 0 if tails), then $X_i \sim \text{Bernoulli}(p)$.</p>
 <p>The Binomial random variable $X$ is the total number of successes:</p>
@@ -8053,9 +8087,9 @@ Actual Mean (expected is 0): 0.0013
 <p>Where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is the number of ways to choose $k$ successes from $n$ trials.</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>$$F(x) = \begin{cases} 0 &amp; \text{if } x &lt; 0 \\ \sum_{k=0}^{\lfloor x \rfloor} \binom{n}{k} p^k (1-p)^{n-k} &amp; \text{if } 0 \le x &lt; n \\ 1 &amp; \text{if } x \ge n \end{cases}$$</p>
-<p>Expectation:</p>
+<p><strong>Expectation:</strong></p>
 <p>$$\mu_X = np$$</p>
-<p>Variance:</p>
+<p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = np(1-p)$$</p>
 <h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><p><strong>Probability Mass Function (PMF)</strong></p>
 <p>Need to prove:</p>
@@ -8232,9 +8266,9 @@ Actual Mean (expected is 0): 0.0013
 e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if } x \ge 0
 
 \end{cases}$$</p>
-<p>Expectation:</p>
+<p><strong>Expectation:</strong></p>
 <p>$$\mu_X = \lambda$$</p>
-<p>Variance:</p>
+<p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = \lambda$$</p>
 <h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><p><strong>Probability Mass Function (PMF):</strong></p>
 <p>Assumption:</p>
