@@ -7592,17 +7592,23 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-Introduction">1. Introduction<a class="anchor-link" href="#1.-Introduction">¶</a></h2><h3 id="Problem-Statement">Problem Statement<a class="anchor-link" href="#Problem-Statement">¶</a></h3><p>In Computer Science, we rarely operate in a perfect, predictable world. Real-world data is noisy, hardware components have inherent failure rates, and user behavior fluctuates randomly. To build robust systems—whether it is a neural network recognizing images or a distributed database ensuring consistency—we cannot simply guess. We need probability distributions.</p>
+<h2 id="1.-Introduction">1. Introduction<a class="anchor-link" href="#1.-Introduction">¶</a></h2><h3 id="Problem-Statement">Problem Statement<a class="anchor-link" href="#Problem-Statement">¶</a></h3><p>In Computer Science, we rarely operate in a perfect, predictable world. Real-world data is noisy, hardware components have inherent failure rates, and user behavior fluctuates randomly. To build robust systems, whether it is a neural network recognizing images or a distributed database ensuring consistency, we cannot simply guess. We need probability distributions.</p>
 <p>Probability distributions provide the essential framework to quantify uncertainty. They allow us to model variables ranging from discrete binary choices (like a "yes/no" click) to continuous signals (like audio frequencies or pixel intensities). By understanding the underlying distribution of our data, we can calculate risks, optimize performance, and train algorithms to make accurate predictions even in the presence of noise.</p>
 <h3 id="Applications-in-Computer-Science">Applications in Computer Science<a class="anchor-link" href="#Applications-in-Computer-Science">¶</a></h3><p>This document bridges the gap between statistical theory and code, exploring how fundamental distributions are applied to solve core computing challenges:</p>
 <ul>
 <li><p><strong>Binary Classification (Spam Filter):</strong> We utilize the Bernoulli distribution as the foundation for modeling binary outcomes. This is the core mechanism behind binary classifiers, such as spam detection algorithms that categorize emails as either "Spam" (1) or "Not Spam" (0).</p>
 </li>
-<li><p><strong>Load Balancing:</strong> We apply the Uniform distribution to algorithms requiring fairness and unpredictability. In distributed systems, random server selection ensures that incoming traffic is spread evenly across resources, preventing bottlenecks.</p>
+<li><p><strong>Load Balancing &amp; System Stability:</strong> We apply Uniform distributions to algorithms requiring fairness and unpredictability.</p>
 </li>
-<li><p><strong>System Reliability (Server requests):</strong> We use the Poisson distribution to model the rate at which events occur over a fixed period. This is critical for tasks like analyzing server log traffic, predicting request arrivals, or detecting anomalies like DDoS attacks where event frequency deviates from the norm.</p>
+<li><p><strong>Discrete Uniform:</strong> Used in Load Balancing to randomly select servers, ensuring traffic is spread evenly across resources.</p>
 </li>
-<li><p><strong>Noise Modeling &amp; Weight Initialization:</strong> We examine the Gaussian (Normal) distribution, the most common distribution in nature. In Machine Learning, it is essential for modeling symmetric noise in data and is frequently used to initialize the weights of Neural Networks to ensure effective training dynamics.</p>
+<li><p><strong>Continuous Uniform:</strong> Used to introduce Jitter (Random Delays) in distributed systems, preventing "Thundering Herd" problems where simultaneous service restarts crash the database.</p>
+</li>
+<li><p><strong>Hardware Reliability (RAID 6):</strong> We employ the Binomial distribution to assess system risks. By modeling independent hard drive failures, we can calculate the probability of data loss in storage arrays (like RAID 6), informing critical decisions on data insurance and redundancy.</p>
+</li>
+<li><p><strong>Cybersecurity (DDoS Detection):</strong> We use the Poisson distribution to model the rate of arrival events. This is critical for <strong>Anomaly Detection</strong>, where the system identifies Brute-force or DDoS attacks by flagging traffic spikes that statistically deviate from the normal Poisson baseline.</p>
+</li>
+<li><p><strong>Sensor Noise Modeling (Robotics):</strong> We examine the Gaussian (Normal) distribution, the standard model for measurement uncertainty. In Robotics and IoT, it is essential for filtering signal noise (e.g., LiDAR distance readings) to estimate true states despite imperfect sensors.</p>
 </li>
 </ul>
 <p>From the discrete simplicity of a Bernoulli trial to the continuous complexity of the Gaussian bell curve, and the rare-event modeling of the Poisson, this guide provides the mathematical definitions, step-by-step proofs, and practical Python implementations for each. Let us dive into the probability theories that power intelligent computing.</p>
@@ -7629,8 +7635,8 @@ Note: you may need to restart the kernel to use updated packages.
 1-p &amp; 0 \le x &lt; 1 \\
 1 &amp; x \ge 1
 \end{cases}\tag{22.8.2}$$</p>
-<p><strong>Mean:</strong></p>
-<p>$$\mu_X = p}$$</p>
+<p><strong>Expectation:</strong></p>
+<p>$$\mu_X = p$$</p>
 <p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = p(1-p)$$</p>
 </div>
@@ -7790,15 +7796,39 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In CS, Bernoulli appears everywhere in the form of <strong>Binary Classification</strong>.</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In Computer Science, the Bernoulli distribution is the mathematical foundation for <strong>Binary Classification</strong>. Consider an email filtering system where a specific incoming email is modeled as a random variable $X$:</p>
 <ul>
-<li><p><strong>Example:</strong> An email arrives in your inbox. It can be <strong>Spam (1)</strong> or <strong>Not Spam (0)</strong>.</p>
+<li><p>$X = 1$: The email is <strong>Spam</strong> (Success).</p>
 </li>
-<li><p><strong>Model:</strong> An AI model (like Logistic Regression) will predict the probability $p$ that the email is Spam. If $p &gt; 0.5$, we classify it as 1, otherwise 0.</p>
+<li><p>$X = 0$: The email is <strong>Not Spam</strong> (Failure).</p>
 </li>
-<li><p>Each data label ($y$) in the training set of a binary classification problem is a Bernoulli random variable.</p>
+<li><p>$p$: The probability that the email is Spam, predicted by an AI model (e.g., Logistic Regression).</p>
 </li>
 </ul>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>Let us calculate the statistics for a specific email where the AI model predicts a probability of <strong>$p = 0.95$</strong>.</p>
+<p>The probability distribution of $X$ is defined as:</p>
+<p>$$P(X=x) = \begin{cases} p &amp; \text{if } x = 1 \\ 1-p &amp; \text{if } x = 0 \end{cases} \tag{22.8.1}$$</p>
+<p>Applying $p = 0.95$:</p>
+<ul>
+<li><p>The probability that this specific email is Spam ($x=1$) is:</p>
+<p>$$P(X=1) = 0.95$$</p>
+</li>
+<li><p>The probability that this specific email is Not Spam ($x=0$) is:</p>
+<p>$$P(X=0) = 1 - 0.95 = 0.05$$</p>
+</li>
+</ul>
+<p>We can manually verify the theoretical properties for this email:</p>
+<ul>
+<li><p><strong>Expectation:</strong> $\mathbb{E}[X] = p = \mathbf{0.95}$.</p>
+</li>
+<li><p>Variance:</p>
+<p>$$\text{Var}(X) = p(1-p) = 0.95 \times (1 - 0.95) = 0.95 \times 0.05 = \mathbf{0.0475}$$</p>
+<p>(The low variance implies the model is very confident in this prediction).</p>
+</li>
+</ul>
+<p>To assign a final class label $\hat{y}$, we compare $p$ against a standard threshold $\tau = 0.5$:</p>
+<p>$$\hat{y} = \begin{cases} 1 &amp; \text{if } p &gt; 0.5 \\ 0 &amp; \text{otherwise} \end{cases}$$</p>
+<p>Since $0.95 &gt; 0.5$, the system classifies this email as <strong>Spam (1)</strong>.</p>
 </div>
 </div>
 </div>
@@ -7809,7 +7839,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">¶</a></h3>
+<h4 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">¶</a></h4>
 </div>
 </div>
 </div>
@@ -7818,32 +7848,40 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="c1"># Suppose we have 5 incoming emails</span>
-<span class="c1"># This is the probability P(Spam) that AI predicts based on the content of each email</span>
-<span class="c1"># (Email 1 is very spam-like, Email 2 is very safe...)</span>
+<span class="c1"># 1. Setup Data</span>
+<span class="c1"># Suppose we have 5 incoming emails.</span>
+<span class="c1"># 'predicted_probs' represents the parameter 'p' for 5 independent Bernoulli variables.</span>
+<span class="c1"># (Email 1 is very likely spam, Email 2 is safe, etc.)</span>
 <span class="n">predicted_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">])</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Predicted probabilities (P):"</span><span class="p">,</span> <span class="n">predicted_probs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Predicted probabilities (p):"</span><span class="p">,</span> <span class="n">predicted_probs</span><span class="p">)</span>
 
-<span class="c1"># Classification threshold, usually 0.5</span>
+<span class="c1"># 2. Define Threshold</span>
+<span class="c1"># This is the decision boundary for our classification</span>
 <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
 
-<span class="c1"># DECISION (Classification)</span>
-<span class="c1"># If p &gt; 0.5 then 1 (Spam), otherwise 0 (Normal)</span>
-<span class="c1"># .float() to convert True/False to 1.0/0.0</span>
+<span class="c1"># 3. Decision (Classification)</span>
+<span class="c1"># If p &gt; 0.5 then 1 (Spam), otherwise 0 (Not Spam)</span>
+<span class="c1"># We cast boolean results to float (0.0 or 1.0)</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="p">(</span><span class="n">predicted_probs</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Classification labels (y_hat):"</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
 
-<span class="c1"># Explain results</span>
+<span class="c1"># 4. Interpret Results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Detailed Results ---"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">):</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="s2">"SPAM"</span> <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">"NORMAL"</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Email </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> (p=</span><span class="si">{</span><span class="n">predicted_probs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">"SPAM"</span> <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">"NOT SPAM"</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="n">predicted_probs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    
+    <span class="c1"># Calculate Variance: p(1-p)</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">p_val</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_val</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Email </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> | p = </span><span class="si">{</span><span class="n">p_val</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> | Var = </span><span class="si">{</span><span class="n">variance</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7856,19 +7894,15 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Predicted probabilities (P): </pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>tensor([0.9500, 0.1000, 0.8000, 0.0500, 0.6000])
+<pre>Predicted probabilities (p): tensor([0.9500, 0.1000, 0.8000, 0.0500, 0.6000])
 Classification labels (y_hat): tensor([1., 0., 1., 0., 1.])
-Email 1: SPAM (p=0.95)
-Email 2: NORMAL (p=0.10)
-Email 3: SPAM (p=0.80)
-Email 4: NORMAL (p=0.05)
-Email 5: SPAM (p=0.60)
+
+--- Detailed Results ---
+Email 1: SPAM     | p = 0.95 | Var = 0.0475
+Email 2: NOT SPAM | p = 0.10 | Var = 0.0900
+Email 3: SPAM     | p = 0.80 | Var = 0.1600
+Email 4: NOT SPAM | p = 0.05 | Var = 0.0475
+Email 5: SPAM     | p = 0.60 | Var = 0.2400
 </pre>
 </div>
 </div>
@@ -7897,7 +7931,7 @@ Email 5: SPAM (p=0.60)
 <p>$$F(x)= \begin{cases} 0 &amp; x &lt; 1, \\ \frac{k}{n} &amp; k \leq x &lt; k+1 \text{ with } 1 \leq k &lt; n, \\ 1 &amp; x \geq n. \end{cases}\tag{22.8.4}$$</p>
 <p>The derivation uses $k$ as a placeholder for the integer part of $x$. We replace $k$ with the floor function $\lfloor x \rfloor$ for two main reasons.</p>
 <p>First, it is mathematically equivalent: the condition $k \le x &lt; k+1$ is effectively the definition of the floor function, meaning $k$ and $\lfloor x \rfloor$ are identical. Second, it offers computational optimization. Using $\lfloor x \rfloor$ creates a closed-form solution that removes the extra variable $k$. This makes the formula easier to read and directly compatible with code functions like Python's <code>math.floor</code>.</p>
-<p><strong>Mean (Expectation):</strong></p>
+<p><strong>Expectation:</strong></p>
 <p>$$\mu_X = \frac{n+1}{2}$$</p>
 <p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = \frac{n^2-1}{12}$$</p>
@@ -8070,17 +8104,34 @@ Email 5: SPAM (p=0.60)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><h3 id="Load-balancing">Load balancing<a class="anchor-link" href="#Load-balancing">¶</a></h3><p>Suppose you have $n$ servers to serve users. When a new request arrives, you need to decide which server to route it to for processing.</p>
-<p>The simplest but most effective strategy is <strong>Random Selection</strong>:</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In distributed systems, the Discrete Uniform distribution is the mathematical model behind <strong>Random Load Balancing</strong>. Suppose you have a cluster of $n$ servers to serve incoming user requests. When a new request arrives, the load balancer must decide which server to route it to.</p>
+<p>The most effective "stateless" strategy is <strong>Random Selection</strong>:</p>
 <ul>
-<li><p>Randomly select a server from the list $\{1, 2, ..., n\}$.</p>
+<li><p>We model the decision as a random variable $X$, representing the index of the selected server.</p>
 </li>
-<li><p>The probability of choosing each server is equal: $p = \frac{1}{n}$.</p>
+<li><p>The pool of servers is $\{1, 2, ..., n\}$.</p>
+</li>
+<li><p>The probability of choosing any specific server is equal: $p = \frac{1}{n}$.</p>
 </li>
 </ul>
-<p>This is exactly a random variable following the <strong>Discrete Uniform</strong> $U(n)$ distribution.</p>
+<p><strong>Benefits:</strong> This approach is extremely fast, requires no memory of previous requests, and according to the Law of Large Numbers, the load will be distributed evenly across all machines as the number of requests increases.</p>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>Let us consider a specific cluster with <strong>$n = 5$</strong> servers. We define the random variable $X \sim U(1, 5)$.</p>
+<p>The probability of routing a request to any specific server $k$ (e.g., Server 3) is:</p>
+<p>$$P(X=k) = \frac{1}{n} \quad \text{for } k \in \{1, 2, 3, 4, 5\}$$</p>
+<p>Substituting $n=5$:</p>
+<p>$$P(X=3) = \frac{1}{5} = \mathbf{0.2}$$</p>
+<p>(Every server has a 20% chance of receiving the request).</p>
+<p>We can calculate the theoretical properties of this distribution:</p>
 <ul>
-<li><strong>Benefits:</strong> Stateless, extremely fast, and mathematically (Law of Large Numbers), when the request volume is large enough, the load will be distributed evenly across the machines.</li>
+<li><p>Expectation (Mean):</p>
+<p>The expected server index (center of the distribution):</p>
+<p>$$\mathbb{E}[X] = \frac{a + b}{2} = \frac{1 + 5}{2} = \mathbf{3}$$</p>
+</li>
+<li><p>Variance:</p>
+<p>The spread of the selection logic:</p>
+<p>$$\text{Var}(X) = \frac{(b - a + 1)^2 - 1}{12} = \frac{(5 - 1 + 1)^2 - 1}{12}$$</p>
+<p>$$\text{Var}(X) = \frac{5^2 - 1}{12} = \frac{24}{12} = \mathbf{2}$$</p>
+</li>
 </ul>
 </div>
 </div>
@@ -8109,20 +8160,20 @@ Email 5: SPAM (p=0.60)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span>    
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="c1"># 1. System Configuration</span>
 <span class="n">num_servers</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">num_requests</span> <span class="o">=</span> <span class="mi">1000000</span> <span class="c1"># 1 million requests</span>
+<span class="n">num_requests</span> <span class="o">=</span> <span class="mi">1000000</span>  <span class="c1"># 1 million requests</span>
 
 <span class="c1"># 2. Load Balancer: Route requests</span>
-<span class="c1"># Randomly select a server index from 0 to 4 for each request</span>
-<span class="c1"># This is the Discrete Uniform U(0, 4) distribution</span>
-<span class="c1"># torch.randint generates integers in [low, high), so we set high=num_servers</span>
+<span class="c1"># We generate 1 million random integers.</span>
+<span class="c1"># torch.randint generates integers in the range [low, high).</span>
+<span class="c1"># To simulate U(1, 5), we use low=1 and high=6.</span>
+<span class="c1"># (Note: In 0-indexed programming, this often maps to 0-4, but the math is identical).</span>
 <span class="n">server_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_servers</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_requests</span><span class="p">,))</span>
 
 <span class="c1"># 3. Load statistics on each server</span>
@@ -8130,23 +8181,24 @@ Email 5: SPAM (p=0.60)
 <span class="n">server_loads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">server_indices</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Requests: </span><span class="si">{</span><span class="n">num_requests</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">35</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_servers</span><span class="p">):</span>
     <span class="n">load</span> <span class="o">=</span> <span class="n">server_loads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="c1"># Ideal theoretical probability is 1/5 = 20%</span>
     <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">load</span> <span class="o">/</span> <span class="n">num_requests</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Server </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">load</span><span class="si">}</span><span class="s2"> requests (</span><span class="si">{</span><span class="n">percent</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">35</span><span class="p">)</span>
 
 <span class="c1"># 4. Evaluate deviation</span>
-<span class="c1"># Ideal: Each server receives exactly 20% (200,000 requests)</span>
+<span class="c1"># Ideal scenario: Each server receives exactly 200,000 requests.</span>
 <span class="n">max_load</span> <span class="o">=</span> <span class="n">server_loads</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="n">min_load</span> <span class="o">=</span> <span class="n">server_loads</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="n">diff</span> <span class="o">=</span> <span class="n">max_load</span> <span class="o">-</span> <span class="n">min_load</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Difference between busiest and freest server: </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> requests"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Percentage deviation: </span><span class="si">{</span><span class="n">diff</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_requests</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Difference (Max - Min): </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2"> requests"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Percentage deviation:   </span><span class="si">{</span><span class="n">diff</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_requests</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8160,15 +8212,15 @@ Email 5: SPAM (p=0.60)
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Total Requests: 1000000
-------------------------------
-Server 1: 200410 requests (20.04%)
-Server 2: 199726 requests (19.97%)
-Server 3: 199986 requests (20.00%)
-Server 4: 200111 requests (20.01%)
-Server 5: 199767 requests (19.98%)
-------------------------------
-Difference between busiest and freest server: 684 requests
-Percentage deviation: 0.0684%
+-----------------------------------
+Server 1: 199854 requests (19.99%)
+Server 2: 199889 requests (19.99%)
+Server 3: 199393 requests (19.94%)
+Server 4: 201157 requests (20.12%)
+Server 5: 199707 requests (19.97%)
+-----------------------------------
+Difference (Max - Min): 1764 requests
+Percentage deviation:   0.1764%
 </pre>
 </div>
 </div>
@@ -8373,20 +8425,31 @@ Percentage deviation: 0.0684%
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>Weight Initialization</p>
-<p>In Deep Learning (AI), the most important application of the continuous uniform distribution is Weight Initialization.</p>
-<p><strong>Concept: Symmetry Breaking</strong></p>
-<p>When building a Neural Network, there are millions of parameters (weights) that need to be learned.</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In distributed systems and cloud computing, a classic application is Preventing the "Thundering Herd" Problem via Jitter.</p>
+<p><strong>Scenario:</strong> Imagine you have 1,000 background worker services scheduled to restart exactly at midnight (00:00). If they all restart at the exact same millisecond, they will flood the database with login requests simultaneously, crashing the system.</p>
+<p>Solution: Add a random "Jitter" (Delay).</p>
+<p>We force each service to wait for a random amount of time $X$ before connecting. This time is chosen from a Continuous Uniform Distribution between 0 and 10 seconds.</p>
 <ul>
-<li><p><strong>Problem:</strong> If we initialize all weights to 0 (or equal values), all neurons will calculate the exact same result. During backpropagation, they will receive the same gradients and "learn" identically. The Neural Network becomes useless.</p>
+<li><p>$X \sim U(0, 10)$.</p>
 </li>
-<li><p><strong>Solution:</strong> We need to initialize weights randomly to "break symmetry".</p>
-</li>
-<li><p><strong>Why Uniform?</strong> Because initially, we <strong>do not know</strong> which weights should be large or small. The "fairest" way (most conservative/unbiased) is to assume every value in a small range $[-\epsilon, \epsilon]$ is equally likely to occur.</p>
+<li><p>Since time is continuous (it can be 1.234s, 5.999s, etc.), this is a continuous distribution.</p>
 </li>
 </ul>
-<p>The famous <strong>Xavier Initialization</strong> (or Glorot Initialization) technique often initializes weights from the distribution:</p>
-<p>$$W \sim U\left(-\frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}}, \frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}}\right)$$</p>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>Let us analyze the random delay variable $X$ with bounds $a = 0$ and $b = 10$.</p>
+<p>For a continuous uniform distribution, the density is constant over the interval:</p>
+<p>$$f(x) = \frac{1}{b - a} = \frac{1}{10 - 0} = \mathbf{0.1}$$</p>
+<p><em>(Note: For continuous variables, $P(X=k) = 0$. We talk about density or ranges).</em></p>
+<p>What is the probability that a service waits less than 7 seconds ($X \le 7$)?</p>
+<p>$$P(X \le 7) = F(7) = \frac{x - a}{b - a} = \frac{7 - 0}{10 - 0} = \mathbf{0.7}$$</p>
+<p>(There is a 70% chance the service starts within the first 7 seconds).</p>
+<ul>
+<li><p>Mean (Average Delay):</p>
+<p>$$\mathbb{E}[X] = \frac{a + b}{2} = \frac{0 + 10}{2} = \mathbf{5} \text{ seconds}$$</p>
+</li>
+<li><p>Variance (Spread):</p>
+<p>$$\text{Var}(X) = \frac{(b - a)^2}{12} = \frac{(10 - 0)^2}{12} = \frac{100}{12} \approx \mathbf{8.33}$$</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -8397,7 +8460,7 @@ Percentage deviation: 0.0684%
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">¶</a></h3><p>We will simulate the initialization of a Linear Layer and check if the weights are truly distributed evenly ("flat").</p>
+<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">¶</a></h3><p>We will simulate 1,000 services generating their random start times to see if the traffic is spread out evenly.</p>
 </div>
 </div>
 </div>
@@ -8406,40 +8469,45 @@ Percentage deviation: 0.0684%
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 
-<span class="c1"># 1. Simulate a Linear layer in a Neural Network</span>
-<span class="c1"># Input: 100 features, Output: 100 features -&gt; Total 10,000 weights</span>
-<span class="n">layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># 1. System Configuration</span>
+<span class="n">num_services</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">min_delay</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># a</span>
+<span class="n">max_delay</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="c1"># b</span>
 
-<span class="c1"># 2. Initialize weights using Uniform distribution</span>
-<span class="c1"># Suppose we want weights in range [-0.5, 0.5]</span>
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span>
-<span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+<span class="c1"># 2. Generate Jitter (Random Delays)</span>
+<span class="c1"># torch.rand generates continuous values in [0, 1]</span>
+<span class="c1"># We scale it to [a, b]:  a + (b-a) * rand</span>
+<span class="n">random_delays</span> <span class="o">=</span> <span class="n">min_delay</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_delay</span> <span class="o">-</span> <span class="n">min_delay</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_services</span><span class="p">)</span>
 
-<span class="c1"># 3. Extract weight data for inspection</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="c1"># 3. Analyze a specific service (e.g., Service #1)</span>
+<span class="n">sample_delay</span> <span class="o">=</span> <span class="n">random_delays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Service #1 Delay: </span><span class="si">{</span><span class="n">sample_delay</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Initialization range: [</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Actual Min: </span><span class="si">{</span><span class="n">weights</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Actual Max: </span><span class="si">{</span><span class="n">weights</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Actual Mean (expected is 0): </span><span class="si">{</span><span class="n">weights</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="c1"># 4. Plot Histogram to see "flatness"</span>
+<span class="c1"># 4. Visualize the Spread (Histogram)</span>
+<span class="c1"># If Uniform, the bars should be roughly equal height (flat top)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'skyblue'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Distribution of Weights after Uniform Initialization"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Weight Value"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Frequency"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'a (Lower bound)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'b (Upper bound)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">random_delays</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'lightgreen'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">max_delay</span><span class="o">-</span><span class="n">min_delay</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Theoretical PDF (0.1)'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Distribution of Service Start Times (Jitter)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Delay (seconds)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 5. Check Probability X &lt;= 7 (CDF)</span>
+<span class="c1"># Count how many are &lt;= 7</span>
+<span class="n">count_below_7</span> <span class="o">=</span> <span class="p">(</span><span class="n">random_delays</span> <span class="o">&lt;=</span> <span class="mf">7.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">empirical_prob</span> <span class="o">=</span> <span class="n">count_below_7</span> <span class="o">/</span> <span class="n">num_services</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Theoretical P(X &lt;= 7): 0.7000"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Empirical P(X &lt;= 7):   </span><span class="si">{</span><span class="n">empirical_prob</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8452,17 +8520,22 @@ Percentage deviation: 0.0684%
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Initialization range: [-0.5, 0.5]
-Actual Min: -0.4999
-Actual Max: 0.4998
-Actual Mean (expected is 0): 0.0013
+<pre>Service #1 Delay: 1.6843 seconds
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
-<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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"/>
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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8CSshVfpBq1bt7a5c+eG5mVkZLjH7du3j/oazQ8vL+q05pc/ePCgm5QLHE6BtZYNAACA4idXLbw//PCDnXzyyUe9cg0hphEV2rRp48be1bBke/bsCY3a0KtXL6tVq5bLsZWBAwdax44dXZqCWnCnTp1qS5cutQkTJrjnK1Wq5J7XKA7lypWzunXr2oIFC+zFF190I0IAAACg+MlVwNugQQMXWPbr18+6du1qZcuWzdXKu3fvbtu3b7ehQ4e6jmctWrSwOXPmhDqmbdy4MaK1ViMwaOzd+++/36Uu6MYTusGEPwavKAhWTu71119vO3fudEHvI488wo0nAAAAiqlcBby60cOkSZNcC+2AAQNc4KrgN94d0mLR6zVFM3/+/CPmdevWzU2xKJ9XdQMAAAByncOrlljdBGLLli3uJhE//fSTdejQwbW0KnVArbYAAABAke+0VqpUKbv66qtt+vTp9thjj9l3331nd999txvHVvm3CoQBAACAIhvwqsPYLbfcYjVq1HAtuwp2v//+ezdyglp/u3Tpknc1BQAAAAoqh1fBrfJk165da5dccokbBUH/+x3M6tevb5MnT7Z69erlZvEAAABAYgPeZ5991m688Ubr06ePa92NpmrVqvbCCy8cbf0AAACAgg94lbJQp06dI27w4Hmeuy2vntONJTTGLgAAAFDkAt5TTjnFdUhTK244jXurdIbDhw/nVf2Qj9asWRPIdQEAABx1wKuW3Gh2796d65tQoOCkpaZZUokk69mzJ7sdAAAEXo4CXt1oQpKSktzd0cqXLx96Tq26n332mRujF4Xbvl37zMvwrOdzPa3aqf+9q11+W/3Bapv9yOwCWRcAAECuA94VK1aEWni/+uorl6fr098pKSluaDIUDQp2a6fULpB1pa5LLZD1AAAAHFXAO2/ePPd/37593Z3WKlWqlJOXAwAAAEUjh1dj8AIAAACBCnh1C2HdTEKtuvo7ntdffz0v6gYAAAAUXMBbuXJl11nN/xsAAAAIVMAbnsZASgMAAACKishbpWXTvn37bO/evaHHGzZssFGjRtl7772Xl3UDAAAAEhPwdunSxV588UX39y+//GJt27a1ESNGuPnPPvvs0dcKAAAASGTAu3z5cjvnnHPc36+99ppVr17dtfIqCH766afzqm4AAABAYgJepTNUrFjR/a00Bo3aUKJECTvzzDNd4AsAAAAU6YC3QYMGNnPmTNu0aZO9++67dtFFF7n527Zt42YUAAAAKPoB79ChQ90thOvVq2ft2rWz9u3bh1p7W7Zsmdd1BAAAAAr2Tmtdu3a1Dh062E8//WQpKSmh+RdeeKFdddVVua8NAAAAUBgCXlFHNU3hNFoDAAAAUOQD3j179tijjz5qc+fOdXm7GRkZEc//8MMPeVU/AAAAoOAD3j/+8Y+2YMECu+GGG6xGjRqhWw4DAAAAgQh4Z8+ebbNmzbKzzz4772sEAAAAJHqUhuOOO86OP/74vKwHAAAAUHgC3oceesgNTaYbUAAAAACBS2kYMWKEff/991atWjU3Fm/p0qWPuPUwAAAAUGQD3iuvvDLvawIAAAAUloB32LBheV8TAAAAoLDk8Movv/xizz//vA0ZMsR27twZSmXYvHlzXtYPAAAAKPgW3i+//NI6depklStXth9//NH69+/vRm14/fXXbePGjfbiiy8eXa0AAACARLbwDho0yPr06WPffvutlS1bNjT/kksusY8++iiv6gYAAAAkJuD9/PPP7eabbz5ifq1atWzr1q1HXysAAAAgkQFvmTJlLC0t7Yj569atsxNPPDFHyxo3bpwb2kwtxe3atbMlS5bELT99+nRr3LixK9+8eXN75513jiizZs0au+KKK1zKRYUKFeyMM85wqRYAAAAofnIV8CqY/Nvf/mYHDx50j5OSklxA+Ze//MWuueaabC9n2rRpLj1Coz6ow1tKSop17tzZtm3bFrX8okWLrEePHtavXz9bsWKFGx5N06pVq0JlND5whw4dXFA8f/58l2/8wAMPRKReAAAAoPgokdsbT+zevdu15u7bt886duxoDRo0sIoVK9ojjzyS7eWMHDnSdXjr27evNW3a1MaPH2/ly5e3iRMnRi0/evRou/jii23w4MHWpEkTd8e3Vq1a2dixY0Nl7rvvPpdL/Pjjj1vLli3tlFNOcQF61apVY9YjPT3dtViHTwAAACjGAa9SBd5//32bNWuWPf300zZgwACXWrBgwQKXQpAdBw4csGXLlrnRHkKVKVHCPV68eHHU12h+eHlRi7BfPiMjw9Xp1FNPdfMV5CpNYubMmXHrMnz4cLdN/lS7du1sbQMAAAACGPAqqFQL7GWXXeY6rj377LO2cOFC27Jli3mel+3l7Nixww4fPuxuTxxOj2N1fNP8eOWVCqGW50cffdS1BL/33nt21VVX2dVXX+2C8Vg0lvCuXbtC06ZNm7K9HQAAAAjQOLwKaJUeoNZc5duq05jmqZOYhinTOLxZtabmJwXj0qVLF7vzzjvd3y1atHC5v0qXUOpFrE54mgAAAFDMA97Jkye7cXbnzp1r559/fsRzH374oetApptO9OrVK8tlValSxUqWLGmpqakR8/W4evXqUV+j+fHKa5mlSpVy+cDhlO+rVmgAAAAUPzlKaXjllVfs3nvvPSLYlQsuuMDuuecee/nll7O1rOTkZGvdurULnsNbaPW4ffv2UV+j+eHlRbnEfnktU0OQrV279ojh0urWrZutegEAAKAYt/BqiC+NfhDL73//e9eJLbs0JFnv3r2tTZs21rZtWxs1apTt2bPHjdogainWzSzUqUwGDhzo0hI0SsSll15qU6dOtaVLl9qECRNCy9QIDt27d7dzzz3XBeZz5syxt956yw1RBgAAgOInRwHvzp07j+g0Fk7P/fzzz9lengLT7du329ChQ13HM+XbKkD116GxfTVyg++ss86yKVOm2P333+9amhs2bOhyhps1axYqo05qytdVkHz77bdbo0aN7F//+pcbmxcAAADFT44CXo2qoBzZWJSTe+jQoRxVQEOaaYomWqtst27d3BTPjTfe6CYAAAAgx6M0aDSGWCMa6AYOAAAAQJENeJVvm5XsjNAAAAAAFMqAd9KkSflXEwAAAKCw3FoYAAAAKCoIeAEAABBoBLwAAAAINAJeAAAABBoBLwAAAAKNgBcAAACBRsALAACAQCPgBQAAQKAR8AIAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8AAAACjYAXAAAAgUbACwAAgEAj4AUAAECgEfACAAAg0Ah4AQAAEGgEvAAAAAg0Al4AAAAEGgEvAAAAAo2AFwAAAIFGwAsAAIBAI+AFAABAoBHwAgAAINAIeAEAABBoBLwAAAAINAJeAAAABBoBLwAAAAKNgBcAAACBRsALAACAQCsUAe+4ceOsXr16VrZsWWvXrp0tWbIkbvnp06db48aNXfnmzZvbO++8E7Psn/70J0tKSrJRo0blQ80BAABQ2CU84J02bZoNGjTIhg0bZsuXL7eUlBTr3Lmzbdu2LWr5RYsWWY8ePaxfv362YsUKu/LKK920atWqI8rOmDHDPv30U6tZs2YBbAkAAAAKo4QHvCNHjrT+/ftb3759rWnTpjZ+/HgrX768TZw4MWr50aNH28UXX2yDBw+2Jk2a2EMPPWStWrWysWPHRpTbvHmz3Xbbbfbyyy9b6dKlC2hrAAAAUNgkNOA9cOCALVu2zDp16vRbhUqUcI8XL14c9TWaH15e1CIcXj4jI8NuuOEGFxSfdtppWdYjPT3d0tLSIiYAAAAEQ0ID3h07dtjhw4etWrVqEfP1eOvWrVFfo/lZlX/sscesVKlSdvvtt2erHsOHD7fKlSuHptq1a+dqewAAAFD4JDylIa+pxVhpD5MnT3ad1bJjyJAhtmvXrtC0adOmfK8nAAAAikHAW6VKFStZsqSlpqZGzNfj6tWrR32N5scr//HHH7sOb3Xq1HGtvJo2bNhgd911lxsJIpoyZcpYpUqVIiYAAAAEQ0ID3uTkZGvdurXNnTs3Iv9Wj9u3bx/1NZofXl7ef//9UHnl7n755Ze2cuXK0KRRGpTP++677+bzFgEAAKCwKZXoCmhIst69e1ubNm2sbdu2brzcPXv2uFEbpFevXlarVi2XZysDBw60jh072ogRI+zSSy+1qVOn2tKlS23ChAnu+RNOOMFN4TRKg1qAGzVqlIAtBAAAQLEOeLt3727bt2+3oUOHuo5nLVq0sDlz5oQ6pm3cuNGN3OA766yzbMqUKXb//ffbvffeaw0bNrSZM2das2bNErgVAAAAKKwSHvDKgAED3BTN/Pnzj5jXrVs3N2XXjz/+eFT1AwAAQNEVuFEaAAAAgHAEvAAAAAg0Al4AAAAEGgEvAAAAAo2AFwAAAIFGwAsAAIBAI+AFAABAoBHwAgAAINAIeAEAABBoBLwAAAAINAJeAAAABBoBLwAAAAKNgBcAAACBRsALAACAQCPgBQAAQKAR8AIAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8AAAACjYAXAAAAgUbACwAAgEAj4AUAAECgEfACAAAg0Ah4AQAAEGgEvAAAAAg0Al4AAAAEGgEvAAAAAo2AFwAAAIFGwAsAAIBAI+AFAABAoBHwAgAAINAIeAEAABBoBLwAAAAItEIR8I4bN87q1atnZcuWtXbt2tmSJUvilp8+fbo1btzYlW/evLm98847oecOHjxof/nLX9z8ChUqWM2aNa1Xr162ZcuWAtgSAAAAFDYJD3inTZtmgwYNsmHDhtny5cstJSXFOnfubNu2bYtaftGiRdajRw/r16+frVixwq688ko3rVq1yj2/d+9et5wHHnjA/f/666/b2rVr7YorrijgLQMAAEBhkPCAd+TIkda/f3/r27evNW3a1MaPH2/ly5e3iRMnRi0/evRou/jii23w4MHWpEkTe+ihh6xVq1Y2duxY93zlypXt/ffft2uvvdYaNWpkZ555pntu2bJltnHjxgLeOgAAABTrgPfAgQMuEO3UqdNvFSpRwj1evHhx1Ndofnh5UYtwrPKya9cuS0pKsmOPPTbq8+np6ZaWlhYxAQAAIBgSGvDu2LHDDh8+bNWqVYuYr8dbt26N+hrNz0n5/fv3u5xepUFUqlQpapnhw4e7lmF/ql27dq63CQAAAIVLwlMa8pM6sCm1wfM8e/bZZ2OWGzJkiGsF9qdNmzYVaD0BAACQf0pZAlWpUsVKlixpqampEfP1uHr16lFfo/nZKe8Huxs2bLAPP/wwZuuulClTxk0AAAAInoS28CYnJ1vr1q1t7ty5oXkZGRnucfv27aO+RvPDy4s6qYWX94Pdb7/91j744AM74YQT8nErAAAAUJgltIVXNCRZ7969rU2bNta2bVsbNWqU7dmzx43aIBpDt1atWi7PVgYOHGgdO3a0ESNG2KWXXmpTp061pUuX2oQJE0LBbteuXd2QZG+//bbLEfbze48//ngXZAMAAKD4SHjA2717d9u+fbsNHTrUBaYtWrSwOXPmhDqmaSgxjdzgO+uss2zKlCl2//3327333msNGza0mTNnWrNmzdzzmzdvtjfffNP9rWWFmzdvnp133nkFun0AAAAo5gGvDBgwwE3RzJ8//4h53bp1c1M0umObOqkBAAAAgR+lAQAAACDgBQAAQKAR8AIAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8AAAACjYAXAAAAgUbACwAAgEAj4AUAAECgEfACAAAg0Ah4AQAAEGgEvAAAAAg0Al4AAAAEGgEvAAAAAo2AFwAAAIFGwAsAAIBAI+AFAABAoBHwAgAAINAIeAEAABBoBLwAAAAINAJeAAAABBoBLwAAAAKNgBcAAACBRsALAACAQCPgBQAAQKAR8AIAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8AAAACjYAXAAAAgUbACwAAgEAj4AUAAECgFYqAd9y4cVavXj0rW7astWvXzpYsWRK3/PTp061x48aufPPmze2dd96JeN7zPBs6dKjVqFHDypUrZ506dbJvv/02n7cCAAAAhVHCA95p06bZoEGDbNiwYbZ8+XJLSUmxzp0727Zt26KWX7RokfXo0cP69etnK1assCuvvNJNq1atCpV5/PHH7emnn7bx48fbZ599ZhUqVHDL3L9/fwFuGQAAAAqDhAe8I0eOtP79+1vfvn2tadOmLkgtX768TZw4MWr50aNH28UXX2yDBw+2Jk2a2EMPPWStWrWysWPHhlp3R40aZffff7916dLFTj/9dHvxxRdty5YtNnPmzALeOgAAACRaqUSu/MCBA7Zs2TIbMmRIaF6JEiVcCsLixYujvkbz1SIcTq23fjC7fv1627p1q1uGr3Llyi5VQq+97rrrjlhmenq6m3y7du1y/6elpVlB2L17t/t/0xebLH3Pb/XIL1u/3Vqg60vEOlkf+5NzhvcEnzN8jhbn74lErHPbd9tCcU1BxFD+OtTYmSUvgTZv3qwaeosWLYqYP3jwYK9t27ZRX1O6dGlvypQpEfPGjRvnVa1a1f39ySefuGVu2bIloky3bt28a6+9Nuoyhw0b5l7DxD7gHOAc4BzgHOAc4BzgHLAitQ82bdqUZcyZ0BbewkItzOGtxhkZGbZz50474YQTLCkpqUB+odSuXds2bdpklSpVyvf1Ie9xDIs+jmHRxvEr+jiGRV9aAcczatn99ddfrWbNmlmWTWjAW6VKFStZsqSlpqZGzNfj6tWrR32N5scr7/+veRqlIbxMixYtoi6zTJkybgp37LHHWkHTyUHAW7RxDIs+jmHRxvEr+jiGRV+lAoxnlLZa6DutJScnW+vWrW3u3LkRrat63L59+6iv0fzw8vL++++HytevX98FveFl9ItDozXEWiYAAACCK+EpDUol6N27t7Vp08batm3rRljYs2ePG7VBevXqZbVq1bLhw4e7xwMHDrSOHTvaiBEj7NJLL7WpU6fa0qVLbcKECe55pSDccccd9vDDD1vDhg1dAPzAAw+45m4NXwYAAIDiJeEBb/fu3W379u3uRhEaXUFpB3PmzLFq1aq55zdu3OhGbvCdddZZNmXKFDfs2L333uuCWo3Q0KxZs1CZP//5zy5ovummm+yXX36xDh06uGXqRhWFkdIpNA5x5rQKFB0cw6KPY1i0cfyKPo5h0VemEMczSeq5luhKAAAAAIG98QQAAACQnwh4AQAAEGgEvAAAAAg0Al4AAAAEGgFvgo0bN87q1avnRpBo166dLVmyJNFVQjZpqLwzzjjDKlasaFWrVnXD3q1du5b9V4Q9+uijoaENUXRs3rzZevbs6e6OWa5cOWvevLkbrhJFw+HDh93woRpGVMfvlFNOsYceesjdRQuF00cffWSXX365G/JVn5kaLSucjp1G39INwHRMO3XqZN9++60lEgFvAk2bNs2NQ6whPJYvX24pKSnWuXNn27ZtWyKrhWxasGCB3Xrrrfbpp5+6m58cPHjQLrroIjckHoqezz//3J577jk7/fTTE10V5MDPP/9sZ599tpUuXdpmz55tq1evduO0H3fccezHIuKxxx6zZ5991saOHWtr1qxxjx9//HEbM2ZMoquGGPQ9p5hFjXbR6Pg9/fTTNn78eHfjrwoVKrj4Zv/+/ZYoDEuWQGrRVQuh3uT+XeZ0D+rbbrvN7rnnnkRWDbmg8aTV0qtA+Nxzz2UfFiG7d++2Vq1a2TPPPONuWqPxwHUTHBR++qz85JNP7OOPP050VZBLl112mRt7/4UXXgjNu+aaa1zL4EsvvcR+LeSSkpJsxowZoZt7qXVXLb933XWX3X333W7erl273DGePHmyXXfddQmpJy28CXLgwAFbtmyZa+YPHYwSJdzjxYsXJ6paOAp6Q8vxxx/Pfixi1FKvOzeGvx9RNLz55pvuTp3dunVzPzhbtmxp//jHPxJdLeSAbig1d+5cW7dunXv8xRdf2MKFC+33v/89+7EIWr9+vbuRWPjnaeXKlV0jXyLjm4Tfaa242rFjh8tb8u8o59Pjb775JmH1Qu6odV55n7q0Gn7XPxR+uj25UoqU0oCi54cffnCXw5Ueprtv6jjefvvtlpyc7G5bj6LRSp+WlmaNGze2kiVLuu/GRx55xK6//vpEVw25oGBXosU3/nOJQMAL5FEL4apVq1yrBIqOTZs22cCBA10OdmG99Tiy/rGpFt6///3v7rFaePVeVO4gAW/R8Oqrr9rLL79sU6ZMsdNOO81WrlzpGhB0WZxjiLxCSkOCVKlSxf2STU1NjZivx9WrV09UtZALAwYMsLffftvmzZtnJ510EvuwCFFakTqJKn+3VKlSblIOtjpb6G+1NKFwUy/wpk2bRsxr0qSJbdy4MWF1Qs4MHjzYtfIqt1MjbNxwww125513upFwUPRU/18MU9jiGwLeBNHlttatW7u8pfCWCj1u3759oqqFHFBivoJdJet/+OGHbkgdFC0XXnihffXVV65FyZ/UWqhLqfpbP0pRuCmNKPNwgMoFrVu3bsLqhJzZu3ev68MSTu89fSei6Klfv74LbMPjG6WsaLSGRMY3pDQkkHLOdLlGX7Bt27Z1vcI11Effvn0TWS3kII1Bl+DeeOMNNxavn5uk5Hz1Lkbhp+OWOedaw+doPFdysYsGtQSq05NSGq699lo3lvmECRPchKJB47kqZ7dOnToupWHFihU2cuRIu/HGGxNdNcQZ2ea7776L6KimRgJ12tZxVEqKRrxp2LChC4A1zrJSVPyRHBLCQ0KNGTPGq1OnjpecnOy1bdvW+/TTTzkiRYTePtGmSZMmJbpqOAodO3b0Bg4cyD4sQt566y2vWbNmXpkyZbzGjRt7EyZMSHSVkANpaWnuPafvwrJly3onn3yyd99993np6ensx0Jq3rx5Ub//evfu7Z7PyMjwHnjgAa9atWrufXnhhRd6a9euTWidGYcXAAAAgUYOLwAAAAKNgBcAAACBRsALAACAQCPgBQAAQKAR8AIAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8A5JMHH3zQWrRoUSD794YbbnC31y3KJk+ebMcee2y2ys6ZM8ft24yMjHyvF4Cij4AXAML06dPHkpKS3FS6dGmrVq2a/e53v7OJEycW2uDqiy++sHfeecduv/12Ky4uvvhid3xefvnlRFcFQBFAwAsAUYKpn376yX788UebPXu2nX/++TZw4EC77LLL7NChQ4Vuf40ZM8a6detmxxxzjBW3HydPP/10oqsBoAgg4AWATMqUKWPVq1e3WrVqWatWrezee++1N954wwW/uuzu++WXX+yPf/yjnXjiiVapUiW74IILXGtrLJ9//rlrLa5SpYpVrlzZOnbsaMuXLw89f+ONN7qgOtzBgwetatWq9sILL0Rd5uHDh+21116zyy+/PGL+M888Yw0bNrSyZcu6VuquXbuGnlNL9fDhw61+/fpWrlw5S0lJccsI9/XXX7u6aLsqVqxo55xzjn3//feh1//tb3+zk046ye0rpRYoxcCnHwpqIX/99dfdj4Xy5cu7dSxevDhiHdqXderUcc9fddVV9p///Cfiee1LvV7rVz1at25tS5cuDT2vbdZjv14AEAsBLwBkg4JZBW0K4nxqVd22bZsLhJctW+aC4wsvvNB27twZdRm//vqr9e7d2xYuXGiffvqpC0gvueQSN18UPCtwVOuy7+2337a9e/da9+7doy7zyy+/tF27dlmbNm1C8xQEKr1BQenatWvdMs8999zQ8wp2X3zxRRs/frwLbO+8807r2bOnLViwwD2/efNmV17B7Icffui2TcG437o9evRoGzFihD355JNu/Z07d7YrrrjCvv3224i63XfffXb33XfbypUr7dRTT7UePXqElvHZZ59Zv379bMCAAe55BbYPP/xwxOuvv/56F1Trh4LqcM8997g0Bp+CZQXzH3/8MecwgPg8AEBI7969vS5dukTdI927d/eaNGni/v7444+9SpUqefv3748oc8opp3jPPfec+3vYsGFeSkpKzL17+PBhr2LFit5bb70Vmte0aVPvscceCz2+/PLLvT59+sRcxowZM7ySJUt6GRkZoXn/+te/XN3S0tKOKK/6li9f3lu0aFHE/H79+nk9evRwfw8ZMsSrX7++d+DAgajrrFmzpvfII49EzDvjjDO8W265xf29fv16T18vzz//fOj5r7/+2s1bs2aNe6x1XXLJJUfs38qVK4cea99MnjzZi6dly5begw8+GLcMANDCCwDZ5Hmeu1TvX27fvXu3nXDCCS531p/Wr18f8xJ7amqq9e/f37XsKqVBl+m1jI0bN4bKqJV30qRJofJqPVbraiz79u1zLbF+vURpE3Xr1rWTTz7Zjd6gjl1qJZbvvvvO/a0y4fVWi69fb7W4KoUhvDXVl5aWZlu2bLGzzz47Yr4er1mzJmLe6aefHvq7Ro0a7n+1iIvKtmvXLqJ8+/btIx4PGjTI7Y9OnTrZo48+GnW/KiXD3zYAiKVUzGcAABEUpCnvVRSoKoibP3/+EXsp1tBaSmdQnqpSAhSQKlBVkHfgwIFQmV69erlL98p3XbRokVufgs9YlA+sgE/LSE5OdvOU86rcYNXtvffes6FDh7oh0pQaoHrLrFmzXI5yONXHDyLzQnjA7AfkORnpQnX+wx/+4OqqwH/YsGE2depUl+/rU/qIcqgBIB4CXgDIBuWyfvXVVy7fVZSvu3XrVitVqpTVq1cvW/vwk08+cZ3JlLcrmzZtsh07dkSUUYvxlVde6Vp5FfT27ds37jL9cX5Xr14dMeav6qWWUU0KFBWEaxvUsqvAVq3K6jQXjVpm//nPf7oOc5lbedUqXbNmTbct4a/X47Zt21p2NWnSxOXxhlNec2bK/dWk/a4cYO0XP+Ddv3+/a/Vt2bJlttcLoHgi4AWATNLT010wqxEQlFagTl/q6KVRC9QCKwok1Tqr4PTxxx93QZku9as1UgFZeCcyn1IZ/u///s89p9SAwYMHR21N1WV8rUvrV6twPGrdVPCtjnB+wKuObj/88IPreHbccce5MXrVstqoUSPX+quOZAogNa9Dhw6u05sCVgWzWp86kmmos+uuu86GDBni0i8UjCqg1TJUbwXRp5xyilunglClQeRkTFx1qlMahDq+denSxd59992IkR6UqqH1aHQJtXL/+9//di3U11xzTaiM6uS3kgNAXKQxA0BkpzV9NGoqVaqUd+KJJ3qdOnXyJk6c6DqZhVOnsNtuu8114ipdurRXu3Zt7/rrr/c2btwYtdPa8uXLvTZt2nhly5b1GjZs6E2fPt2rW7eu99RTT0UsVx3QND9zp65YnnnmGe/MM88MPVaHuo4dO3rHHXecV65cOe/000/3pk2bFrH8UaNGeY0aNXL11jZ27tzZW7BgQajMF1984V100UWug5s6j51zzjne999/757TflBHsVq1arnXaxtnz54deq3faW3FihWheT///LObN2/evNC8F154wTvppJNcHdU578knnwx1WktPT/euu+46t0+Tk5PdPh4wYIC3b9++0Otvuukm7+abb+b0BZClJP0TPyQGABQk5dkqv1Ytp1dffXWW5dUaqpbXadOmFZvWTqWCaJs1BJufVw0AsZDSAACFhFIMFMhpjFvl3Gps2+xQWoRGWcicDxxkurmF8qEJdgFkBy28AFCIgjgFcLrZgu5CpptYAACOHgEvAAAAAo0bTwAAACDQCHgBAAAQaAS8AAAACDQCXgAAAAQaAS8AAAACjYAXAAAAgUbACwAAgEAj4AUAAIAF2f8HtKE5R6vswbkAAAAASUVORK5CYII="/>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Theoretical P(X &lt;= 7): 0.7000
+Empirical P(X &lt;= 7):   0.6840
+</pre>
 </div>
 </div>
 </div>
@@ -8714,7 +8787,32 @@ Actual Mean (expected is 0): 0.0013
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Python-Implementation">Python Implementation<a class="anchor-link" href="#Python-Implementation">¶</a></h3><p>This code segment simulates the calculation above using torch, and simultaneously illustrates calculating CDF (probability of failing at least how many drives).</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In System Engineering and Reliability Engineering, the Binomial distribution is crucial for assessing <strong>System Reliability</strong>.</p>
+<p><strong>Scenario:</strong> You are operating a Data Center using a <strong>RAID 6</strong> (Redundant Array of Independent Disks) storage system. This system consists of <strong>$n = 8$ hard drives</strong>.</p>
+<ul>
+<li><p>According to technical specifications, the probability of a single hard drive failing in one year is <strong>$p = 5\%$ ($0.05$)</strong>.</p>
+</li>
+<li><p>The hard drives fail independently of each other.</p>
+</li>
+<li><p><strong>Goal:</strong> You want to calculate the risk probability to decide whether to purchase additional data insurance.</p>
+</li>
+</ul>
+<p>Question: What is the probability that exactly 2 hard drives fail simultaneously this year? ($k=2$).</p>
+<p>(Note: RAID 6 remains operational if 2 drives fail, but this is the critical "Red Alert" threshold before data loss).</p>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>We model the number of failed drives as a random variable $X \sim \text{Binomial}(n=8, p=0.05)$. We need to calculate the Probability Mass Function (PMF) at $k=2$.</p>
+<p>The probability of exactly $k$ successes (failures in this context) in $n$ trials is:</p>
+<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+<p>The number of ways to choose 2 failed drives out of 8 is:</p>
+<p>$$\binom{8}{2} = \frac{8!}{2!(8-2)!} = \frac{8 \times 7}{2 \times 1} = \frac{56}{2} = \mathbf{28}$$</p>
+<ul>
+<li><p><strong>Probability of 2 failures:</strong> $p^2 = 0.05^2 = 0.0025$</p>
+</li>
+<li><p><strong>Probability of 6 survivals:</strong> $(1-p)^{8-2} = 0.95^6 \approx 0.73509$</p>
+</li>
+</ul>
+<p>$$P(X=2) = 28 \times 0.0025 \times 0.73509$$</p>
+<p>$$P(X=2) = 0.07 \times 0.73509 \approx \mathbf{0.05146}$$</p>
+<p><strong>Conclusion:</strong> There is approximately a <strong>5.15%</strong> chance that exactly 2 drives will fail this year.</p>
 </div>
 </div>
 </div>
@@ -9040,16 +9138,25 @@ e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p><strong>DDoS Detection (Denial of Service)</strong></p>
-<p>In cybersecurity, normal traffic to a website often follows a Poisson distribution.</p>
-<p>Users access independently of each other.</p>
-<p>Average access speed ($\lambda$) is usually stable within a certain time frame.</p>
-<p>If the number of requests suddenly spikes far beyond the allowable threshold of the Poisson distribution (lying in the extreme tail of the graph), the system will flag it as an anomaly or a potential DDoS attack.</p>
-<p>Concrete Example:</p>
-<p>You manage a Login Server.</p>
-<p>Normal: Average $\lambda = 5$ failed logins in 1 minute (due to users forgetting passwords).</p>
-<p>Event: In the past minute, the system recorded 12 failed logins.</p>
-<p>Question: What is the probability of this happening randomly? If the probability is too low (&lt; 1%), we conclude this is a Brute-force attack and block the IP.</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In Cybersecurity and Network Administration, the Poisson distribution is the standard model for <strong>DDoS (Distributed Denial of Service) Detection</strong>.</p>
+<p><strong>Scenario:</strong> You manage a Login Server. Under normal conditions, user traffic follows a Poisson distribution because users access the system independently of each other.</p>
+<ul>
+<li><p><strong>Normal Baseline:</strong> The average rate of failed login attempts is <strong>$\lambda = 5$ failures per minute</strong> (mostly due to genuine users forgetting passwords).</p>
+</li>
+<li><p><strong>Event:</strong> In the past minute, the system monitoring tool recorded <strong>12 failed logins</strong>.</p>
+</li>
+</ul>
+<p><strong>Question:</strong> What is the probability of observing 12 or more failures purely by chance? If this probability (P-value) is too low (e.g., $&lt; 1\%$), we conclude this is a <strong>Brute-force attack</strong> and automatically block the IP.</p>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>We model the number of failed logins as a random variable $X \sim \text{Poisson}(\lambda=5)$. We need to determine if $k=12$ is an anomaly.</p>
+<p>The probability of observing exactly $k$ events is:</p>
+<p>$$P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}$$</p>
+<p>Substituting $\lambda = 5$ and $k = 12$ directly into the formula:
+$$P(X=12) = \frac{5^{12} \cdot e^{-5}}{12!} \approx \mathbf{0.00343}$$</p>
+<p>To calculate the total risk, we look at the probability of the event being at least as extreme as observed ($P(X \ge 12)$).</p>
+<p>$$P(X \ge 12) = 1 - P(X \le 11) = 1 - \sum_{k=0}^{11} \frac{5^k e^{-5}}{k!}$$</p>
+<p>Summing the probabilities from 0 to 11 gives the cumulative probability $F(11) \approx 0.9945$.</p>
+<p>$$\text{P-value} = 1 - 0.9945 = \mathbf{0.0055}$$</p>
+<p><strong>Conclusion:</strong> Since $0.55\% &lt; 1\%$, we reject the hypothesis that this is random. <strong>Action: Block IP.</strong></p>
 </div>
 </div>
 </div>
@@ -9069,49 +9176,49 @@ e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="c1"># 1. System configuration</span>
-<span class="c1"># Average rate of failed logins/minute</span>
-<span class="n">lambda_normal</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="c1"># 1. System Configuration</span>
+<span class="c1"># Average rate of normal failed logins/minute</span>
+<span class="n">lambda_normal</span> <span class="o">=</span> <span class="mf">5.0</span> 
 
 <span class="c1"># Number of failures observed in the current minute</span>
 <span class="n">observed_failures</span> <span class="o">=</span> <span class="mi">12</span>
 
-<span class="c1"># 2. Build Poisson model</span>
-<span class="c1"># This is the "Baseline" of the normal system</span>
+<span class="c1"># 2. Build Poisson Model</span>
+<span class="c1"># This represents the "Baseline" behavior of the system</span>
 <span class="n">poisson_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="n">lambda_normal</span><span class="p">)</span>
 
-<span class="c1"># 3. Calculate Anomaly Score</span>
-<span class="c1"># We calculate P-value: Probability that X &gt;= observed_failures happens randomly</span>
+<span class="c1"># 3. Calculate Anomaly Score (P-value)</span>
+<span class="c1"># We calculate the probability that X &gt;= observed_failures happens purely by chance</span>
 <span class="c1"># P(X &gt;= k) = 1 - P(X &lt;= k-1) = 1 - CDF(k-1)</span>
 
-<span class="c1"># Calculate CDF at k-1 = 11</span>
+<span class="c1"># Calculate CDF at k-1 = 11 manually by summing PMFs</span>
 <span class="n">cdf_val</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observed_failures</span><span class="p">):</span> <span class="c1"># runs from 0 to 11</span>
-    <span class="c1"># log_prob returns logarithm, need exp to get probability</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">observed_failures</span><span class="p">):</span> <span class="c1"># k runs from 0 to 11</span>
+    <span class="c1"># log_prob returns logarithm, we use exp() to get the actual probability</span>
     <span class="n">prob_k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">poisson_model</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">))))</span>
     <span class="n">cdf_val</span> <span class="o">+=</span> <span class="n">prob_k</span>
 
 <span class="n">p_value</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">cdf_val</span>
 
 <span class="c1"># 4. Decision Making</span>
-<span class="c1"># Confidence threshold alpha = 0.01 (1%)</span>
+<span class="c1"># Set confidence threshold alpha = 0.01 (1%)</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average (Normal): </span><span class="si">{</span><span class="n">lambda_normal</span><span class="si">}</span><span class="s2"> fails/minute"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Observed (Observed): </span><span class="si">{</span><span class="n">observed_failures</span><span class="si">}</span><span class="s2"> fails/minute"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P-value (Random probability): </span><span class="si">{</span><span class="n">p_value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average Rate (Normal):   </span><span class="si">{</span><span class="n">lambda_normal</span><span class="si">}</span><span class="s2"> fails/minute"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Observed Rate (Current): </span><span class="si">{</span><span class="n">observed_failures</span><span class="si">}</span><span class="s2"> fails/minute"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P-value (Random Prob):   </span><span class="si">{</span><span class="n">p_value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="c1"># This graph helps visualize the tail of the distribution</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;&gt; WARNING: Brute-force attack detected! (P-value &lt; 1%)"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&gt;&gt;&gt; WARNING: Brute-force attack detected! (P-value </span><span class="si">{</span><span class="n">p_value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> &lt; 1%)"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;&gt; NORMAL: Could be due to users forgetting passwords."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;&gt; NORMAL: Variance likely due to users forgetting passwords."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9124,10 +9231,11 @@ e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if 
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Average (Normal): 5.0 fails/minute
-Observed (Observed): 12 fails/minute
-P-value (Random probability): 0.005453
-&gt;&gt;&gt; WARNING: Brute-force attack detected! (P-value &lt; 1%)
+<pre>Average Rate (Normal):   5.0 fails/minute
+Observed Rate (Current): 12 fails/minute
+P-value (Random Prob):   0.005453
+----------------------------------------
+&gt;&gt;&gt; WARNING: Brute-force attack detected! (P-value 0.55% &lt; 1%)
 </pre>
 </div>
 </div>
@@ -9383,10 +9491,24 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p><strong>Maximum Entropy Property</strong></p>
-<p>This is the most important philosophical property of Gaussian mentioned in the document. Gaussian is the distribution with Maximum Entropy among distributions with the same mean and variance.</p>
-<p>Significance: It is the "most random" and "most conservative" choice.</p>
-<p>Application: If we only know the data has a fixed Mean and Variance without knowing anything else, assuming it is Gaussian is safest because we do not impose any additional hidden structures (like symmetry or boundary limits) on the data.</p>
+<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><p>In <strong>Robotics and Signal Processing</strong>, the Gaussian distribution is the standard model for <strong>Sensor Noise</strong>.</p>
+<p><strong>Scenario:</strong> A self-driving car uses a LiDAR sensor to measure the distance to an obstacle.</p>
+<ul>
+<li><p>The <strong>True Distance</strong> is $\mu = 50.0$ meters.</p>
+</li>
+<li><p>The sensor is not perfect; its readings fluctuate due to thermal noise and vibrations.</p>
+</li>
+<li><p>The technical manual states the sensor has a standard deviation of $\sigma = 0.5$ meters.</p>
+</li>
+<li><p>We model the measured distance $X$ as a Gaussian random variable: $X \sim \mathcal{N}(50, 0.5^2)$.</p>
+</li>
+</ul>
+<p><strong>Question:</strong> The car receives a reading of <strong>$x = 50.5$ meters</strong>. What is the probability density (confidence) of this reading?</p>
+<h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>We calculate the Probability Density Function (PDF) value at $x = 50.5$ for a Gaussian distribution with $\mu = 50$ and $\sigma = 0.5$.</p>
+<p>$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$</p>
+<p>$$f(50.5) = \frac{1}{\sqrt{2\pi(0.5)^2}} e^{-\frac{(50.5 - 50)^2}{2(0.5)^2}}$$</p>
+<p>$$f(50.5) = \frac{1}{\sqrt{0.5\pi}} e^{-0.5} \approx 0.7979 \times 0.6065 \approx \mathbf{0.4839}$$</p>
+<p><em>(Note: For continuous variables, this value represents <strong>probability density</strong>, not absolute probability).</em></p>
 </div>
 </div>
 </div>
