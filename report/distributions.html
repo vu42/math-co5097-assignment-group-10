@@ -7622,19 +7622,15 @@ Note: you may need to restart the kernel to use updated packages.
 <p>$$X \sim \text{Bernoulli}(p)$$</p>
 <p><strong>Probability Mass Function (PMF):</strong></p>
 <p>The probability that $X$ takes the value $x$ is:</p>
-<p>$$P(X=x) = \begin{cases} p &amp; \text{if } x = 1 \\ 1-p &amp; \text{if } x = 0 \end{cases}$$</p>
+<p>$$P(X=x) = \begin{cases} p &amp; \text{if } x = 1 \\ 1-p &amp; \text{if } x = 0 \end{cases} \tag{22.8.1}$$</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>$$F(x) = \begin{cases}
-
 0 &amp; x &lt; 0 \\
-
 1-p &amp; 0 \le x &lt; 1 \\
-
 1 &amp; x \ge 1
-
-\end{cases}$$</p>
+\end{cases}\tag{22.8.2}$$</p>
 <p><strong>Mean:</strong></p>
-<p>$$\mu_X = p$$</p>
+<p>$$\mu_X = p}$$</p>
 <p><strong>Variance:</strong></p>
 <p>$$\sigma_X^2 = p(1-p)$$</p>
 </div>
@@ -7886,21 +7882,21 @@ Email 5: SPAM (p=0.60)
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.2.-Discrete-Uniform-Distribution">2.2. Discrete Uniform Distribution<a class="anchor-link" href="#2.2.-Discrete-Uniform-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>This distribution is used to describe the case where we randomly select an integer from the set $\{1, 2, ..., n\}$ where every value is equally likely to occur (e.g., rolling a 6-sided die, so $n=6$).</p>
-<p><strong>Notation:</strong> $X \sim U(n)$.</p>
+<p><strong>Notation:</strong> $$X \sim U(n) \tag{22.8.3}$$.</p>
 <p><strong>Probability Mass Function (PMF):</strong></p>
 <p>Since there are $n$ values and equal probability, the probability of each value is $\frac{1}{n}$.</p>
 <p>$$p_i = P(X=i) = \frac{1}{n} \quad \text{for } i \in \{1, 2, ..., n\}$$</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>$$F(x) = \begin{cases}
-
 0 &amp; x &lt; 1 \\
-
 \frac{\lfloor x \rfloor}{n} &amp; 1 \le x &lt; n \\
-
 1 &amp; x \ge n
-
 \end{cases}$$</p>
 <p>$\lfloor x \rfloor$ is the floor value of x</p>
+<p>In D2L book, the CDF is defined as:</p>
+<p>$$F(x)= \begin{cases} 0 &amp; x &lt; 1, \\ \frac{k}{n} &amp; k \leq x &lt; k+1 \text{ with } 1 \leq k &lt; n, \\ 1 &amp; x \geq n. \end{cases}\tag{22.8.4}$$</p>
+<p>The derivation uses $k$ as a placeholder for the integer part of $x$. We replace $k$ with the floor function $\lfloor x \rfloor$ for two main reasons.</p>
+<p>First, it is mathematically equivalent: the condition $k \le x &lt; k+1$ is effectively the definition of the floor function, meaning $k$ and $\lfloor x \rfloor$ are identical. Second, it offers computational optimization. Using $\lfloor x \rfloor$ creates a closed-form solution that removes the extra variable $k$. This makes the formula easier to read and directly compatible with code functions like Python's <code>math.floor</code>.</p>
 <p><strong>Mean (Expectation):</strong></p>
 <p>$$\mu_X = \frac{n+1}{2}$$</p>
 <p><strong>Variance:</strong></p>
@@ -8022,7 +8018,8 @@ Email 5: SPAM (p=0.60)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><h3 id="Cumulative-Distribution-Function-(PDF):">Cumulative Distribution Function (PDF):<a class="anchor-link" href="#Cumulative-Distribution-Function-(PDF):">¶</a></h3><p>Suppose we have a random variable $X$ following a discrete uniform distribution on the set of integers $\{1, 2, \dots, n\}$.</p>
+<h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><p><strong>Cumulative Distribution Function (PDF):</strong></p>
+<p>Suppose we have a random variable $X$ following a discrete uniform distribution on the set of integers $\{1, 2, \dots, n\}$.</p>
 <p>The probability mass function (PMF): $P(X=k) = \frac{1}{n}$ for all $k \in \{1, \dots, n\}$.</p>
 <p>According to the CDF definition:</p>
 <p>$$F(x) = \begin{cases}
@@ -8186,14 +8183,22 @@ Percentage deviation: 0.0684%
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.3.-Continuous-Uniform-Distribution">2.3. Continuous Uniform Distribution<a class="anchor-link" href="#2.3.-Continuous-Uniform-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>The continuous uniform distribution is a distribution where probability is equally likely for all outcomes of a continuous random variable.</p>
 <p>This distribution appears when we take the discrete uniform distribution (choosing 1 of $n$ numbers), increase $n$ to infinity, and stretch it to fit in an interval $[a, b]$. It represents choosing a random value arbitrarily in the interval $[a, b]$ with equal probability.</p>
-<p><strong>Notation:</strong> $X \sim U(a, b)$.</p>
+<p><strong>Notation:</strong> $$X \sim U(a, b)\tag{22.8.5}$$.</p>
 <p><strong>Probability Density Function (PDF):</strong></p>
 <p>Unlike the discrete case (PMF), for continuous variables we use "density". Since the probability of picking an exact specific point is 0, we only care about the probability falling into an <em>interval</em>.</p>
 <p>To make the total area under the graph equal to 1 (total probability = 1), the height of the rectangle on the segment $[a, b]$ must be $\frac{1}{b-a}$.</p>
-<p>$$p(x) = \begin{cases} \frac{1}{b-a} &amp; \text{if } a \le x \le b \\ 0 &amp; \text{if } x &lt; a \text{ or } x &gt; b \end{cases}$$</p>
+<p>$$p(x) = \begin{cases} \frac{1}{b-a} &amp; \text{if } a \le x \le b \\ 0 &amp; \text{if } x &lt; a \text{ or } x &gt; b \end{cases} \tag{22.8.6}$$</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>This is the area calculated from the left to point $x$.</p>
 <p>$$F(x) = \begin{cases} 0 &amp; \text{for } x &lt; a, \\ \frac{x-a}{b-a} &amp; \text{for } a \le x \le b, \\ 1 &amp; \text{for } x &gt; b. \end{cases}$$</p>
+<p>In D2l, the CDF function defined:</p>
+<p>$$F(x) =
+\begin{cases}
+0, &amp; x &lt; a,\\[4pt]
+\dfrac{x - a}{b - a}, &amp; x \in [a,b],\\[4pt]
+1, &amp; x \ge b.
+\end{cases}\tag{22.8.7}$$</p>
+<p>This means at the point $x=b$, both conditions $x \in [a,b]$ and $x \ge b$ are satisfied. Although the calculated value is still consistent ($=1$), but in terms of function definition, the condition overlap is not optimal.</p>
 <p><strong>Expectation:</strong></p>
 <p>$$\mu_X = \frac{a+b}{2}$$</p>
 <p><strong>Variance:</strong></p>
@@ -8326,8 +8331,8 @@ Percentage deviation: 0.0684%
 <p>$$\begin{aligned} &amp; \int_{a}^{b} k \, dx = 1 \\ \Leftrightarrow \quad &amp; k \cdot \int_{a}^{b} 1 \, dx = 1 \\ \Leftrightarrow \quad &amp; k \cdot [x]_{a}^{b} = 1 \\ \Leftrightarrow \quad &amp; k \cdot (b - a) = 1 \\ \Leftrightarrow \quad &amp; k = \frac{1}{b-a} \end{aligned}$$</p>
 <p>Thus we have the formula: $p(x) = \frac{1}{b-a}$ in the interval $[a, b]$.</p>
 <p><strong>Cumulative Distribution Function (CDF)</strong></p>
-<p><em>Assumption (Probability Density Function - PDF):</em></p>
-<p>The probability density function of the continuous uniform distribution $U(a, b)$ is:</p>
+<p><em>Assumption:</em></p>
+<p>The probability density function (PDF) of the continuous uniform distribution $U(a, b)$ is:</p>
 <p>$$p(t) = \begin{cases} \frac{1}{b-a} &amp; a \le t \le b \\ 0 &amp; \text{otherwise} \end{cases}$$</p>
 <p><em>CDF Definition:</em></p>
 <p>The cumulative distribution function is the probability that the random variable $X$ takes a value less than or equal to $x$, calculated by the integral of the density function:</p>
@@ -8471,16 +8476,25 @@ Actual Mean (expected is 0): 0.0013
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.4.-Binomial-Distribution">2.4. Binomial Distribution<a class="anchor-link" href="#2.4.-Binomial-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>it is a discrete probability distribution with two parameters $n$ and $p$, denoting the number of successes in $n$ independent trials seeking a yes/no success result.</p>
 <p>Imagine you don't just toss a coin once (Bernoulli), but toss $n$ times consecutively and independently. You count how many times heads appear.</p>
-<p>Let $X_i$ be the result of the $i$-th toss (1 if heads, 0 if tails), then $X_i \sim \text{Bernoulli}(p)$.</p>
+<p>Let $X_i$ be the result of the $i$-th toss (1 if heads, 0 if tails), then $$X_i \sim \text{Bernoulli}(p)$$.</p>
 <p>The Binomial random variable $X$ is the total number of successes:</p>
-<p>$$X = \sum_{i=1}^n X_i$$</p>
+<p>$$X = \sum_{i=1}^n X_i\tag{22.8.8}$$</p>
 <p>Notation: $X \sim \text{Binomial}(n, p)$.</p>
 <p><strong>Probability Mass Function (PMF):</strong></p>
 <p>The probability of having exactly $k$ successes in $n$ trials is:</p>
-<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}\tag{22.8.9}$$</p>
 <p>Where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is the number of ways to choose $k$ successes from $n$ trials.</p>
 <p><strong>Cumulative Distribution Function (CDF):</strong></p>
 <p>$$F(x) = \begin{cases} 0 &amp; \text{if } x &lt; 0 \\ \sum_{k=0}^{\lfloor x \rfloor} \binom{n}{k} p^k (1-p)^{n-k} &amp; \text{if } 0 \le x &lt; n \\ 1 &amp; \text{if } x \ge n \end{cases}$$</p>
+<p>In D2L book, the CDF function defined:</p>
+<p>$$F(x) =
+\begin{cases}
+0, &amp; x &lt; 0,\\[4pt]
+\displaystyle \sum_{m \le k} \binom{n}{m} p^{m} (1-p)^{\,n-m}, &amp; k \le x &lt; k+1 \text{ with } 0 \le k &lt; n,\\[4pt]
+1, &amp; x \ge n.
+\end{cases}\tag{22.8.10}$$</p>
+<p>In the revised formula, the upper bound is explicitly written as $\lfloor x \rfloor$. This clarifies the meaning: the CDF is the sum of probabilities of all integers from 0 to the integer part of $x$.</p>
+<p>it helps the formula be more concise, shifting from a conditional description form to a computational formula form (computational formula), convenient for algorithm implementation.</p>
 <p><strong>Expectation:</strong></p>
 <p>$$\mu_X = np$$</p>
 <p><strong>Variance:</strong></p>
@@ -8774,8 +8788,8 @@ Actual Mean (expected is 0): 0.0013
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.5.-Poisson-Distribution">2.5. Poisson Distribution<a class="anchor-link" href="#2.5.-Poisson-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p><strong>Idea</strong></p>
-<p>Law of Rare Events. Imagine you are standing at a bus stop.</p>
-<p>If you divide 1 minute into 60 seconds. In each second, the probability of a bus arriving is very small (rare).</p>
+<p>Law of Rare Events:</p>
+<p>Imagine you are standing at a bus stop. If you divide 1 minute into 60 seconds. In each second, the probability of a bus arriving is very small (rare).</p>
 <p>However, if you accumulate a whole hour, surely a few buses will arrive.</p>
 <p>When we take the Binomial distribution $(n, p)$, keeping the expectation $\lambda = np$ constant, but letting the number of trials $n \to \infty$ (dividing time infinitely small) and the probability of success $p \to 0$ (event is very rare in that moment), we will obtain the Poisson distribution.</p>
 <p><strong>Definition</strong></p>
@@ -8794,6 +8808,14 @@ Actual Mean (expected is 0): 0.0013
 e^{-\lambda} \sum_{k=0}^{\lfloor x \rfloor} \frac{\lambda^k}{k!} &amp; \text{if } x \ge 0
 
 \end{cases}$$</p>
+<p>We use it instead of the D2L's (22.8.14) formula below because it directly encodes $F(x)=P(X\le x)$ for any real $x$ and makes the dependence of the upper summation index on $x$ explicit via $\lfloor x \rfloor$.</p>
+<p>The D2L book defined the CDF as:</p>
+<p>$$F(x) =
+\begin{cases}
+0, &amp; x &lt; 0,\\[4pt]
+e^{-\lambda} \displaystyle\sum_{m=0}^{k} \dfrac{\lambda^{m}}{m!}, &amp; k \le x &lt; k+1 \text{ with } 0 \le k.
+\end{cases} \tag{22.8.14}$$</p>
+<p>This uses an auxiliary integer k defined implicitly by the condition $k \le x &lt; k+1$, which yields an infinite family of interval specific cases and obscures the functional dependence on $x$.</p>
 <p><strong>Expectation:</strong></p>
 <p>$$\mu_X = \lambda$$</p>
 <p><strong>Variance:</strong></p>
@@ -9256,15 +9278,101 @@ P-value (Random probability): 0.005453
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Step-by-step-Computation-(this-is-math-proof)">Step-by-step Computation (this is math proof)<a class="anchor-link" href="#Step-by-step-Computation-(this-is-math-proof)">¶</a></h3><p><strong>Origin: The Central Limit Theorem</strong></p>
-<p>Unlike Poisson (where we let $n \to \infty$ and $p \to 0$), the Gaussian distribution appears from another limit problem of the Binomial distribution.</p>
-<p>Suppose we have a sum $X^{(n)}$ of $n$ independent Bernoulli random variables with fixed probability $p$. When $n \to \infty$, both the expectation ($\mu = np$) and variance ($\sigma^2 = np(1-p)$) approach infinity, causing the distribution to "flatten" out and become hard to define.</p>
-<p>To solve this, we standardize this random variable:</p>
-<p>$$Y^{(n)} = \frac{X^{(n)} - \mu_{X^{(n)}}}{\sigma_{X^{(n)}}}$$</p>
-<p>This variable $Y^{(n)}$ has a mean of 0 and variance of 1.</p>
-<p>The Central Limit Theorem (CLT) states that when $n \to \infty$, the distribution of $Y^{(n)}$ will converge to the standard Gaussian distribution:</p>
-<p>$$\lim_{n\rightarrow\infty}P(Y^{(n)}\in[a,b])=P(\mathcal{N}(0,1)\in[a,b])$$</p>
-<p>This is the reason Gaussian is the foundation of Machine Learning: Whenever we measure the sum of many small independent contributions, the result will approximate a Gaussian.</p>
+<h3 id="Step-by-step-Computation">Step-by-step Computation<a class="anchor-link" href="#Step-by-step-Computation">¶</a></h3><p>We start from the general central limit theorem idea</p>
+<p>Let</p>
+<ul>
+<li><p>$X_1, X_2, \dots, X_N$ be independent and identically distributed random variables,</p>
+</li>
+<li><p>each with finite mean $\mathbb{E}[X_i] = \mu$ and variance (\mathrm{Var}(X_i) = \sigma^2 &gt; 0$.</p>
+</li>
+</ul>
+<p>Define the partial sum</p>
+<p>$$
+X^{(N)} = \sum_{i=1}^{N} X_i.
+$$</p>
+<p>The mean of the sum is</p>
+<p>$$
+
+\mu_{X^{(N)}} = \mathbb{E}[X^{(N)}]
+
+= \mathbb{E}\Big[\sum_{i=1}^{N} X_i\Big]
+
+= \sum_{i=1}^{N} \mathbb{E}[X_i]
+
+= \sum_{i=1}^{N} \mu
+
+= N\mu.
+
+$$</p>
+<p>The variance of the sum (using independence) is</p>
+<p>$$
+
+\sigma_{X^{(N)}}^{2}
+
+= \mathrm{Var}\Big(\sum_{i=1}^{N} X_i\Big)
+
+= \sum_{i=1}^{N} \mathrm{Var}(X_i)
+
+= \sum_{i=1}^{N} \sigma^2
+
+= N\sigma^2.
+
+$$</p>
+<p>We then standardize this sum to obtain a new random variable</p>
+<p>$$
+
+Y^{(N)} = \frac{X^{(N)} - \mu_{X^{(N)}}}{\sigma_{X^{(N)}}}
+
+= \frac{X^{(N)} - N\mu}{\sqrt{N},\sigma}.
+
+\tag{22.8.15}
+
+$$</p>
+<p>Step by step properties of $Y^{(N)}$:</p>
+<ol>
+<li>Mean of $Y^{(N)}$:</li>
+</ol>
+<p>$$
+
+\mathbb{E}[Y^{(N)}]
+
+= \mathbb{E}\Big[\frac{X^{(N)} - N\mu}{\sqrt{N},\sigma}\Big]
+
+= \frac{1}{\sqrt{N},\sigma}\Big(\mathbb{E}[X^{(N)}] - N\mu\Big)
+
+= \frac{1}{\sqrt{N},\sigma}(N\mu - N\mu)
+
+= 0.
+
+$$</p>
+<ol start="2">
+<li>Variance of $Y^{(N)}$:</li>
+</ol>
+<p>For a constant (c) and random variable (Z), (\mathrm{Var}(cZ) = c^2 \mathrm{Var}(Z)). Hence</p>
+<p>$$
+
+\mathrm{Var}(Y^{(N)})
+
+= \mathrm{Var}\Big(\frac{X^{(N)} - N\mu}{\sqrt{N},\sigma}\Big)
+
+= \frac{1}{N\sigma^2},\mathrm{Var}(X^{(N)})
+
+= \frac{1}{N\sigma^2} \cdot N\sigma^2
+
+= 1.
+$$</p>
+<p>So $Y^{(N)}$ has mean 0 and variance 1 for every $N$.</p>
+<p>The central limit theorem states that, as (N) becomes large, the distribution of $Y^{(N)}$ converges to a Gaussian distribution with mean 0 and variance 1. More precisely, for any real numbers $a &lt; b$</p>
+<p>$$
+\lim_{N \to \infty} \mathbb{P}\big(Y^{(N)} \in [a,b]\big)
+
+\mathbb{P}\big( Z \in [a,b] \big),
+
+\quad Z \sim \mathcal{N}(0,1).
+
+\tag{22.8.16}
+$$</p>
+<p>Equation (22.8.16) says: the standardized sum $Y^{(N)}$ behaves, in the limit, like a standard normal random variable $Z$. This is the core reason why Gaussians appear so often in probability and statistics.</p>
 </div>
 </div>
 </div>
@@ -9384,7 +9492,7 @@ tensor([[-0.1991, -1.4247,  0.2938, -0.0252,  0.4002],
 <p>Substitute into the exponential expression and separate the elements:</p>
 <p>$$p(x|\mu, \sigma) = \frac{1}{\sqrt{2\pi}} \cdot \frac{1}{\sigma} \cdot \exp\left\{ \frac{2\mu x - x^2 - \mu^2}{2\sigma^2} \right\}$$</p>
 <p>Logarithmic transformation to bring $\frac{1}{\sigma}$ into the exponential function (note $\frac{1}{\sigma} = \exp(-\log \sigma)$):</p>
-<p>$$p(x|\mu, \sigma) = \frac{1}{\sqrt{2\pi}} \cdot \exp\left\{ \frac{\mu}{\sigma^2}x - \frac{1}{2\sigma^2}x^2 - \left( \frac{\mu^2}{2\sigma^2} + \log(\sigma) \right) \right\}$$</p>
+<p>$$p(x|\mu, \sigma) = \frac{1}{\sqrt{2\pi}} \cdot \exp\left\{ \frac{\mu}{\sigma^2}x - \frac{1}{2\sigma^2}x^2 - \left( \frac{\mu^2}{2\sigma^2} + \log(\sigma) \right) \right\} \tag{22.8.22}$$</p>
 <p>Step 3: Mapping to the canonical form</p>
 <p>Based on the equation above, we identify each corresponding component:</p>
 <p>Underlying measure $h(x)$:</p>
@@ -9407,7 +9515,7 @@ tensor([[-0.1991, -1.4247,  0.2938, -0.0252,  0.4002],
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Exercises">Exercises<a class="anchor-link" href="#Exercises">¶</a></h1>
+<h1 id="Exercise">Exercise<a class="anchor-link" href="#Exercise">¶</a></h1>
 </div>
 </div>
 </div>
@@ -9775,105 +9883,6 @@ We also see:</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The chart will display blue bars matching perfectly with the red triangular polyline, highest peak at $k=7$ (with probability $6/36 \approx 0.167$) and lowest at $k=2, 12$.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=59fb049f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">visualize_discrete_convolution</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1"># 1. Tạo lưới X, Y</span>
-    <span class="c1"># X, Y nhận giá trị từ 1 đến n</span>
-    <span class="n">range_n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">range_n</span><span class="p">,</span> <span class="n">range_n</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">'ij'</span><span class="p">)</span>
-    
-    <span class="c1"># 2. Tính ma trận Tổng Z = X + Y</span>
-    <span class="n">Z_matrix</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">Y</span>
-    
-    <span class="c1"># Chuyển sang numpy để vẽ</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">Z_matrix</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-    
-    <span class="c1"># 3. Vẽ Heatmap</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    
-    <span class="c1"># Sử dụng bản đồ màu rời rạc để dễ nhìn các đường chéo</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">'d'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'viridis'</span><span class="p">,</span> 
-                <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">'label'</span><span class="p">:</span> <span class="s1">'Tổng (Sum Z)'</span><span class="p">},</span>
-                <span class="n">xticklabels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
-                <span class="n">yticklabels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Ma trận Tổng của 2 biến Uniform (n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">)</span><span class="se">\n</span><span class="s1">Các ô cùng màu nằm trên cùng đường chéo'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Giá trị Y'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Giá trị X'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    
-    <span class="c1"># 4. Kiểm chứng công thức đếm bằng code</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- KIỂM CHỨNG CÔNG THỨC (n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">) ---"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'k (Tổng)'</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'Đếm thực tế (Matrix)'</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'Công thức lý thuyết'</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">'Khớp?'</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">65</span><span class="p">)</span>
-    
-    <span class="c1"># Duyệt qua tất cả các tổng k có thể có (từ 2 đến 2n)</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="c1"># Đếm thực tế: Số lượng phần tử trong ma trận bằng k</span>
-        <span class="n">actual_count</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Z_matrix</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        
-        <span class="c1"># Tính theo công thức</span>
-        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">theory_count</span> <span class="o">=</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span>
-            <span class="n">formula_type</span> <span class="o">=</span> <span class="s2">"k - 1 (Lên)"</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">theory_count</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">formula_type</span> <span class="o">=</span> <span class="s2">"2n - k + 1 (Xuống)"</span>
-            
-        <span class="n">is_match</span> <span class="o">=</span> <span class="s2">"✅"</span> <span class="k">if</span> <span class="n">actual_count</span> <span class="o">==</span> <span class="n">theory_count</span> <span class="k">else</span> <span class="s2">"❌"</span>
-        
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">actual_count</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">theory_count</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">is_match</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">formula_type</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
-
-<span class="c1"># Chạy thử với n=5</span>
-<span class="n">visualize_discrete_convolution</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
-<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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3rNnjxQuXNg8RgPu//u//zMX8YkTJ8qJEydM4JrdjI8GWTrMkV6kx44da4IMDQL0gp3T7KQG89omUX90aLZRyz5lyhTp2rWrrFq1Spo2bSo55W7fVrZs2Ww9XptiaGetBx54wAQfb7/9tlx33XXm9TUgyYw2XRg8eLAJGPQ80GOlvfU1kPrjjz+kZs2aqY/VoEPfkzat0OB/8eLF8p///Mf8ABg2bJhYLTevp+eMngPPP/+82Rf6Y0F/zCh9vn5m9T1p8KjvVZuLaKZQ32vaHyT6+alTp47ZlmcgpeexniP6Wpqh17L16NFD3n33XXn88cdTawf0vLzllltMFbd+vjKzdu1a871wxRVXZHi/tunWgFW3q4G/fsfcdNNNppOV/lh1tyvVz252aBOHtOVp37696TSk3x+6z3U/63tPS4Nl/S7asmVLlucV4FguIJumTZumVxbX6tWrXZMnT3aFhoa6zpw5Y+7r27evq3379ub/atWqubp37+71XPfj3M6dO+dq2LChq0OHDhd9Xd2WbjOtJUuWmPLUrFkz3fYTExNdycnJXuv27t3rCg4Odj377LPptnHZZZe5kpKSUte//vrrZv2mTZtc2TVixAjznIy89tpr5r5PP/3Uax+0bNnSVaJECdfp06dTy6iPK1OmjOv48eOpj/3666/N+vnz56eua9Sokaty5cquuLi41HVLly41j8tof3k6efKkOX5XX3216+zZs173paSkpP6v2xk8eHC657dr184sbhcuXPDaf+rEiROu8uXLu+644w5XbnTq1MlVsmRJs52L0fesy5o1a1LXRUVFuYoWLerq06dPunNY97PSfRceHu4aMmSI1/ZiYmJcYWFhrjvvvDN1ne4Hfa7n+aOaNWvmat68+UXLmNHnwk0/U7ptLV9uXk8fN27cuHTn9ezZs70e17RpU1dERITr2LFjqes2bNjgKlCggGvQoEGp63Rb+vz+/ftn+D70vhUrVqSuW7hwoVkXEhJi9rvbe++9Z9ZrebLy4YcfZvp50/VFihRx7dq1y6vMuv7NN99M956zs7iPv/riiy9ct99+u2v69OmuuXPnup588klXsWLFXGXLlnVFR0enK4++b92GPg9AemQskSuahdDONJpx1KyQ/s0oU+mm1WVumlnTTIxWx2nW81Jptslz+8qzc4a+lmYFNdOp1aSamUlLO49o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aSNt5B0dzkb961//8lo/bdo0uf322zkUeUirXgcNGmQ6KGhgr+3JNKjs3LkzxwGOdeDAARNEHjt2TMqVKydt2rQxQ3Dp/4Bdglxa3wcAAABcIsaxBAAAgCUILAEAAGAJAksAAABYgsASAAAAliCwBAAAgCUILAEAAGAJAksAAABYgsASgF/Rgc+ZDAAAAhOBJYA8FxQUJF999VW69du2bZOhQ4fK1VdfbenrVa9eXV577TVLtwkASI/AEoBldD71kSNHSu3ataVo0aJSvnx5ad26tZke88yZM6mP06kZde5vT4mJiWbaxk8//VQuu+yyLF9n3759Jjhdv359tsq1evVqufvuuzO8784775RGjRrJuXPnvNZ/9913UqRIEfnjjz+y9RoAAKZ0BGCRPXv2mCAyPDxcxo8fb4K14OBg2bRpk7z//vtyzz33SM+ePS15LQ0sa9SoIevWrZOmTZtm+jgNFjU4zMrp06fN3OM65/LEiRPNupMnT0qDBg3k3nvvlaeeesqSMgOAEzBXOABLXHfddbJlyxZTnV28ePF097tcLpNlNF88QUEyd+5c6d27t7k9ZswYc/vAgQNSoUIFGTBggDz99NNSuHDhjL+4/tmOW7t27WTp0qVy++23m6DwqquukrfeessEtnv37jVV4aNGjTJLRpYsWSJdu3aVX375xVTD63a2bt0qK1askEKFClmwdwDAGfjGBHDJjh07Jj/88IM8//zzGQaVGQWDnkJDQ02HncjISNm8ebOpttZ1jz76aIaPX7VqlbRo0UIWL15sMoueWckff/xRSpYsKYsWLcp2+du3by/Dhw+XwYMHy4QJE2TWrFmmCpygEgByhjaWAC7Zrl27TEayXr16XuvLli0rJUqUMItmJTPz5JNPSqtWrUxm8YYbbpCHHnrIBHeZKVeunPlbpkwZk+EsXbp06n0a2H744Ycm4NQlu9zV4P369TMBcv369bP9XADA3wgsAfiMZha1g40GeElJSZk+bvr06aatpAagmtl8+OGHJTo6OlevqW07L9auMiMhISHmdYsVK2Y6IAEAco7AEsAl017gGhBu377da33NmjXNfRq0ZWb58uVmiKFHHnlE9u/fLykpKfL222+n66WdXZlVxWeHVn0XLFgwy2p7AEDmCCwBXDKtku7cubNMnjxZEhIScvTclStXmipw7bBTqlQpE9Rpp5msuDOSycnJl1RuAIC1CCwBWEKzjBcuXJArr7xSvvjiC/nzzz9NBlPHpdSe4poJzIi2y9Shij777DPZvXu3vPLKK2YMyaxERESYLOiCBQvk8OHDcurUKY4iAPgBAksAlqhVq5YZV7JTp04yduxYadKkiQky33zzTdN2UXtbZ6RHjx6m97cOBaTtLLVd5sXGjtQq6zfeeEPee+8905O8V69eHEUA8AOMYwkAAABLkLEEkO9pr3StqgcA+BYZSwD5XlRUlJlqMiwszO6iAEC+RmAJAAAAS1AVDgAAAEsQWAIAAMASBJYAAACwBIElAAAALEFgCQAAAAJLAAAA+A8ylgAAALAEgSUAAADECv8PYeW9oXCFc60AAAAASUVORK5CYII="/>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>
---- KIỂM CHỨNG CÔNG THỨC (n=5) ---
-k (Tổng)   | Đếm thực tế (Matrix) | Công thức lý thuyết  | Khớp?
------------------------------------------------------------------
-2          | 1                    | 1                    | ✅  (k - 1 (Lên))
-3          | 2                    | 2                    | ✅  (k - 1 (Lên))
-4          | 3                    | 3                    | ✅  (k - 1 (Lên))
-5          | 4                    | 4                    | ✅  (k - 1 (Lên))
-6          | 5                    | 5                    | ✅  (k - 1 (Lên))
-7          | 4                    | 4                    | ✅  (2n - k + 1 (Xuống))
-8          | 3                    | 3                    | ✅  (2n - k + 1 (Xuống))
-9          | 2                    | 2                    | ✅  (2n - k + 1 (Xuống))
-10         | 1                    | 1                    | ✅  (2n - k + 1 (Xuống))
-</pre>
-</div>
 </div>
 </div>
 </div>
