@@ -8547,8 +8547,8 @@ Empirical P(X &lt;= 7):   0.6840
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.4.-Binomial-Distribution">2.4. Binomial Distribution<a class="anchor-link" href="#2.4.-Binomial-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>it is a discrete probability distribution with two parameters $n$ and $p$, denoting the number of successes in $n$ independent trials seeking a yes/no success result.</p>
-<p>Imagine you don't just toss a coin once (Bernoulli), but toss $n$ times consecutively and independently. You count how many times heads appear.</p>
+<h2 id="2.4.-Binomial-Distribution">2.4. Binomial Distribution<a class="anchor-link" href="#2.4.-Binomial-Distribution">¶</a></h2><h3 id="Definition">Definition<a class="anchor-link" href="#Definition">¶</a></h3><p>The binomial distribution is a discrete probability distribution with two parameters $n$ and $p$. It models the number of successes in $n$ independent Bernoulli trials, each with success probability $p$.</p>
+<p>Imagine tossing a coin once (Bernoulli), but toss $n$ times consecutively and independently and counting how many times heads appear.</p>
 <p>Let $X_i$ be the result of the $i$-th toss (1 if heads, 0 if tails), then $$X_i \sim \text{Bernoulli}(p)$$.</p>
 <p>The Binomial random variable $X$ is the total number of successes:</p>
 <p>$$X = \sum_{i=1}^n X_i\tag{22.8.8}$$</p>
@@ -8760,27 +8760,6 @@ Empirical P(X &lt;= 7):   0.6840
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09fce538">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Concrete-Example">Concrete Example<a class="anchor-link" href="#Concrete-Example">¶</a></h3><h3 id="System-Reliability">System Reliability<a class="anchor-link" href="#System-Reliability">¶</a></h3><p>You are operating a Data Center. You use a RAID 6 (Redundant Array of Independent Disks) storage system. This system consists of $n = 8$ hard drives.</p>
-<ul>
-<li><p>According to technical specifications, the probability of a hard drive failing in 1 year is $p = 5\%$ ($0.05$).</p>
-</li>
-<li><p>The hard drives fail independently of each other.</p>
-</li>
-<li><p>You want to calculate the risk probability to know whether to buy additional data insurance.</p>
-</li>
-</ul>
-<p><strong>Question:</strong> What is the probability that exactly 2 hard drives fail together this year? ($k=2$).</p>
-<p>(Note: RAID 6 is still safe if 2 drives fail, but this is a red alert threshold).</p>
-</div>
-</div>
-</div>
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1d1d2768">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8801,7 +8780,10 @@ Empirical P(X &lt;= 7):   0.6840
 <p>(Note: RAID 6 remains operational if 2 drives fail, but this is the critical "Red Alert" threshold before data loss).</p>
 <h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>We model the number of failed drives as a random variable $X \sim \text{Binomial}(n=8, p=0.05)$. We need to calculate the Probability Mass Function (PMF) at $k=2$.</p>
 <p>The probability of exactly $k$ successes (failures in this context) in $n$ trials is:</p>
-<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}  \\
+&amp;= \binom{8}{2} (0.05)^2 (0.95)^{6} \\
+&amp;= 28 \times 0.0025 \times 0.73509 \\
+&amp;= 0.05146$$</p>
 <p>The number of ways to choose 2 failed drives out of 8 is:</p>
 <p>$$\binom{8}{2} = \frac{8!}{2!(8-2)!} = \frac{8 \times 7}{2 \times 1} = \frac{56}{2} = \mathbf{28}$$</p>
 <ul>
@@ -10005,6 +9987,38 @@ We also see:</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The chart will display blue bars matching perfectly with the red triangular polyline, highest peak at $k=7$ (with probability $6/36 \approx 0.167$) and lowest at $k=2, 12$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16036e65">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="References">References<a class="anchor-link" href="#References">¶</a></h1><p>[1] A. Zhang, Z. C. Lipton, M. Li, and A. J. Smola, “Distributions,” in
+<em>Dive into Deep Learning</em>. [Online]. Available:
+<a href="https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/distributions.html">https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/distributions.html</a></p>
+<p>[2] “Bernoulli distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">https://en.wikipedia.org/wiki/Bernoulli_distribution</a></p>
+<p>[3] “Discrete uniform distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution">https://en.wikipedia.org/wiki/Discrete_uniform_distribution</a></p>
+<p>[4] “Continuous uniform distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">https://en.wikipedia.org/wiki/Continuous_uniform_distribution</a></p>
+<p>[5] “Binomial distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Binomial_distribution">https://en.wikipedia.org/wiki/Binomial_distribution</a></p>
+<p>[6] “Poisson distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Poisson_distribution">https://en.wikipedia.org/wiki/Poisson_distribution</a></p>
+<p>[7] “Normal distribution,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Normal_distribution">https://en.wikipedia.org/wiki/Normal_distribution</a></p>
+<p>[8] “Exponential family,” <em>Wikipedia, The Free Encyclopedia</em>. [Online]. Available:
+<a href="https://en.wikipedia.org/wiki/Exponential_family">https://en.wikipedia.org/wiki/Exponential_family</a></p>
+<p>[9] Đ. H. Cường and P. D. Khánh, <em>Xác Suất Thống Kê</em>.
+Nhà Xuất Bản Đại Học Sư Phạm TP. Hồ Chí Minh, Vietnam.</p>
+<p>[10] N. T. T. Thủy, <em>Bài Giảng Xác Suất Thống Kê</em>.
+Trường Đại Học Bách Khoa Hà Nội, Viện Toán Ứng Dụng và Tin Học,
+Hà Nội, Vietnam, 2020.</p>
 </div>
 </div>
 </div>
