@@ -8730,10 +8730,14 @@ Empirical P(X &lt;= 7):   0.6840
 <p>(Note: RAID 6 remains operational if 2 drives fail, but this is the critical "Red Alert" threshold before data loss).</p>
 <h4 id="Step-by-Step-Computation">Step-by-Step Computation<a class="anchor-link" href="#Step-by-Step-Computation">¶</a></h4><p>We model the number of failed drives as a random variable $X \sim \text{Binomial}(n=8, p=0.05)$. We need to calculate the Probability Mass Function (PMF) at $k=2$.</p>
 <p>The probability of exactly $k$ successes (failures in this context) in $n$ trials is:</p>
-<p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}  \\
+<p>$$
+\begin{aligned}
+P(X=k) &amp;= \binom{n}{k} p^k (1-p)^{n-k}  \\
 &amp;= \binom{8}{2} (0.05)^2 (0.95)^{6} \\
 &amp;= 28 \times 0.0025 \times 0.73509 \\
-&amp;= 0.05146$$</p>
+&amp;= 0.05146
+\end{aligned}
+$$</p>
 <p>The number of ways to choose 2 failed drives out of 8 is:</p>
 <p>$$\binom{8}{2} = \frac{8!}{2!(8-2)!} = \frac{8 \times 7}{2 \times 1} = \frac{56}{2} = \mathbf{28}$$</p>
 <ul>
