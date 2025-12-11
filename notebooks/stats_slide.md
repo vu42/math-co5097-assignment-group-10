@@ -11,7 +11,7 @@ style: |
   }
 ---
 # Statistics
-Hypothesis Testing
+Hypothesis Testing & Confusion Matrix
 ---
 ---
 ### **1. Hypothesis Testing Setup**
@@ -32,20 +32,17 @@ In practice, we make a decision:
 
 **Machine learning confusion matrix**
 
-| Reality / Decision | Predict Positive | Predict Negative |
+|  | Predict Positive | Predict Negative |
 |--------------------|-----------------|------------------|
-| Actual Positive    | True Positive   | False Negative   |
-| Actual Negative    | False Positive  | True Negative    |
+| **Actual Positive**    | True Positive   | False Negative   |
+| **Actual Negative**    | False Positive  | True Negative    |
 
-
-**Hypothesis testing:**
-
-- **False Positive (FP)** $\leftrightarrow$ **Type I error**  
-- **False Negative (FN)** $\leftrightarrow$ **Type II error**
+- **False Positive (FP)** **Type I error**  
+- **False Negative (FN)** **Type II error**
 
 ---
 
-## **Recall**
+### **Base knowledge**
 In $(22.10.5)$, 
 $$
 \text{statistical significance} 
@@ -71,28 +68,62 @@ Note:
 
 ---
 
-## **Mapping into Machine learning Confusion Matrix**
-| Reality / Decision | Predict Positive | Predict Negative |
+### **Mapping into Machine learning Confusion Matrix**
+|  | Predict Positive | Predict Negative |
 |--------------------|-----------------|------------------|
-| Actual Positive    | True Positive   | False Negative $=\beta =P(\text{fail to reject } H_0 \mid H_0 \text{is false})$   |
-| Actual Negative    | False Positive $=\alpha =P(\text{reject } H_0 \mid H_0 \text{ is true})$  | True Negative    |
+| **Actual Positive**    | True Positive <br> $=$ Correct decision   | False Negative $=\beta$ <br> $=P(\text{fail to reject } H_0 \mid H_0 \text{ is false})$   |
+| **Actual Negative**    | False Positive $=\alpha$<br>$=P(\text{reject } H_0 \mid H_0 \text{ is true})$  | True Negative <br> $=$ Correct decision   |
 
 ---
 
-### **Experimental Sample**
+### **Example**
 
-Finding out new drug effect or Not on a group of patients.
+Hypothesis: Finding out new drug effect or Not on a group of patients.
 
-Hypothesis setup:
 $$
-H_0 : \text{Drug has no effect}
+H_0 (Null\,hypothesis): \text{Drug has no effect}
 \qquad\text{vs}\qquad
 H_1 : \text{Drug has real effect exists}
 $$
 
-| Reality / Decision | Predict Drug Effect | Predict Drug Not Effect |
+|  | Predict Drug Effect | Predict Drug Not Effect |
 |--------------------|-----------------|------------------|
-| Actual Effect    | True Positive   | False Negative $=\beta =P(\text{fail to reject } H_0 \mid H_0 \text{ is false})$   |
-| Actual Not Effect    | False Positive $=\alpha =P(\text{reject } H_0 \mid H_0 \text{ is true})$  | True Negative    |
+| **Actual Effect**    | True Positive <br> $=$ Correct decision   | False Negative $=\beta$<br>$=P(\text{fail to reject } H_0 \mid H_0 \text{ is false})$   |
+| **Actual Not Effect**    | False Positive $=\alpha$<br>$=P(\text{reject } H_0 \mid H_0 \text{ is true})$  | True Negative <br> $=$ Correct decision   |
 
+---
+**Intepretation**
+- Type I error rate (FP):
+    - False alarm - **Falsely** "discover" something. 
+    *[Discover something exist, however, it does not.]*
+    - In ML terms: you predicted "positive" when the truth was negative
 
+- Type II error rate (FN):
+    - **Missing** "discover" something.
+    *[Skip a fact that is existed.]*
+    - In ML terms: you predicted “negative” when truth is positive.
+
+---
+**Some reasons may lead to that and solvings:**
+
+- Type I error rate (FP):
+    - Random noise sample (Sample selection technique)
+    
+- Type II error rate (FN):
+
+    - Sample size is small (So increase the sample size)
+    - Results are noisy (So redesign experiment, or change the measurement)
+    - The observed effect is weak (So increase the treatment, or the sample size)
+
+---
+**Medical Screening**
+- Screening can falsely alarm healthy people or overlook real disease.
+- Screening test would be cheap, easy to administer, and produce zero false negatives, if possible. 
+- Large sample.
+*Hence*, more Type I error (false positive) and less Type II error (false negative)
+
+Vietnam COVID-19 Screening Example: 
+- **Hypothesis**: A person has COVID-19.
+- **Null-Hypothesis $(H_0)$**: A person does not have COVID-19. 
+- **Type I error (FP)**: The **test says a person has COVID-19** when they are **actually healthy**. Which leads to unnecessary isolation, anxiety, and resource use.
+- **Type II error (FN):** The **test says a person is healthy** when they **actually have COVID-19**. Leads to undetected spread and delayed treatment.
