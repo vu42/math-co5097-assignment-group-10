@@ -8285,39 +8285,15 @@ $$P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)}$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="4.2-Terminology-and-Interpretation">4.2 Terminology and Interpretation<a class="anchor-link" href="#4.2-Terminology-and-Interpretation">¶</a></h3><p>In Bayes' theorem:
-$$P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}$$</p>
-<table>
-<thead>
-<tr>
-<th>Term</th>
-<th>Name</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$P(A)$</td>
-<td><strong>Prior</strong></td>
-<td>What we believed BEFORE seeing evidence</td>
-</tr>
-<tr>
-<td>$P(B \mid A)$</td>
-<td><strong>Likelihood</strong></td>
-<td>How likely is the evidence if our belief is true?</td>
-</tr>
-<tr>
-<td>$P(B)$</td>
-<td><strong>Marginal / Evidence</strong></td>
-<td>How likely is the evidence overall?</td>
-</tr>
-<tr>
-<td>$P(A \mid B)$</td>
-<td><strong>Posterior</strong></td>
-<td>What we believe AFTER seeing evidence</td>
-</tr>
-</tbody>
-</table>
+<h3 id="4.2-Terminology-and-Interpretation">4.2 Terminology and Interpretation<a class="anchor-link" href="#4.2-Terminology-and-Interpretation">¶</a></h3><p>In Bayes' theorem:</p>
+<p>$$P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}$$</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li><strong>$P(A)$ - Prior:</strong> What we believed BEFORE seeing evidence</li>
+<li><strong>$P(B \mid A)$ - Likelihood:</strong> How likely is the evidence if our belief is true?</li>
+<li><strong>$P(B)$ - Marginal/Evidence:</strong> How likely is the evidence overall?</li>
+<li><strong>$P(A \mid B)$ - Posterior:</strong> What we believe AFTER seeing evidence</li>
+</ul>
 <p><strong>The Big Idea:</strong> Bayes' theorem tells us how to update our beliefs when we get new information.</p>
 </div>
 </div>
@@ -8391,13 +8367,13 @@ $$P(\text{Comes} \mid \text{Says Yes}) = \frac{P(\text{Says Yes} \mid \text{Come
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
-<h2 id="Section-5:-Expectation-and-Variance">Section 5: Expectation and Variance<a class="anchor-link" href="#Section-5:-Expectation-and-Variance">¶</a></h2><h3 id="5.1-Expectation-(Expected-Value)">5.1 Expectation (Expected Value)<a class="anchor-link" href="#5.1-Expectation-(Expected-Value)">¶</a></h3><p><strong>Definition 5.1 (Expectation - Discrete Case):</strong>
+<h2 id="Section-6:-Expectation-and-Variance">Section 6: Expectation and Variance<a class="anchor-link" href="#Section-6:-Expectation-and-Variance">¶</a></h2><h3 id="6.1-Expectation-(Expected-Value)">6.1 Expectation (Expected Value)<a class="anchor-link" href="#6.1-Expectation-(Expected-Value)">¶</a></h3><p><strong>Definition 6.1 (Expectation - Discrete Case):</strong>
 For a discrete random variable $X$ with possible values $x_1, x_2, \ldots$:</p>
 <p>$$E[X] = \sum_{i} x_i P(X = x_i) \tag{2.6.12}$$
 where the sum is over all possible values of $X$.</p>
 <p><strong>Conditions for existence:</strong> The expectation exists if and only if $\sum_{x} |x| \cdot P(X = x) &lt; \infty$.</p>
 <p><strong>Alternative Notation:</strong> $E[X] = E_{X \sim P}[X] = \mu_X = \mu$
-<strong>Theorem 5.1.1 (Expectation of a Function)</strong></p>
+<strong>Theorem 6.1.1 (Expectation of a Function)</strong></p>
 <p>For any function $f$ of a random variable $X$:</p>
 <p>$$E[f(X)] = \sum_{i} f(x_i) P(X = x_i) \tag{2.6.13}$$</p>
 <p><strong>Example:</strong> For $f(x) = x^2$:
@@ -8412,7 +8388,7 @@ $$E[X^2] = \sum_{i} x_i^2 P(X = x_i)$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="5.2-Properties-of-Expectation">5.2 Properties of Expectation<a class="anchor-link" href="#5.2-Properties-of-Expectation">¶</a></h3><p><strong>Theorem 5.2 (Linearity of Expectation):</strong>
+<h3 id="6.2-Properties-of-Expectation">6.2 Properties of Expectation<a class="anchor-link" href="#6.2-Properties-of-Expectation">¶</a></h3><p><strong>Theorem 6.2 (Linearity of Expectation):</strong>
 For random variables $X$ and $Y$ and constants $a, b \in \mathbb{R}$:
 $$E[aX + bY] = aE[X] + bE[Y]$$</p>
 <p><strong>Proof (Discrete Case):</strong></p>
@@ -8445,7 +8421,7 @@ $$E[aX + bY] = aE[X] + bE[Y]$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="5.3-Variance">5.3 Variance<a class="anchor-link" href="#5.3-Variance">¶</a></h3><p><strong>Definition 5.4 (Variance):</strong>
+<h3 id="6.3-Variance">6.3 Variance<a class="anchor-link" href="#6.3-Variance">¶</a></h3><p><strong>Definition 5.4 (Variance):</strong>
 The variance measures the spread of a random variable around its mean:</p>
 <p>$$\text{Var}[X] = E\left[(X - \mu)^2\right] \tag{2.6.14}$$</p>
 <p>where $\mu = E[X]$ is the expected value of $X$.</p>
@@ -8489,7 +8465,7 @@ $$= E[X^2] - (E[X])^2$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="5.4-Properties-of-Variance">5.4 Properties of Variance<a class="anchor-link" href="#5.4-Properties-of-Variance">¶</a></h3><p><strong>Theorem 5.3 (Variance of Scaled Random Variable):</strong>
+<h3 id="6.4-Properties-of-Variance">6.4 Properties of Variance<a class="anchor-link" href="#6.4-Properties-of-Variance">¶</a></h3><p><strong>Theorem 5.3 (Variance of Scaled Random Variable):</strong>
 For any constant $c$:
 $$\text{Var}[cX] = c^2 \text{Var}[X]$$</p>
 <p><strong>Proof:</strong></p>
@@ -8521,7 +8497,7 @@ $$\text{Var}[X + Y] = \text{Var}[X] + \text{Var}[Y]$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="5.5-Standard-Deviation">5.5 Standard Deviation<a class="anchor-link" href="#5.5-Standard-Deviation">¶</a></h3><p><strong>Definition 5.5 (Standard Deviation):</strong>
+<h3 id="6.5-Standard-Deviation">6.5 Standard Deviation<a class="anchor-link" href="#6.5-Standard-Deviation">¶</a></h3><p><strong>Definition 5.5 (Standard Deviation):</strong>
 The <strong>standard deviation</strong> is the square root of variance:
 $$\sigma_X = \sqrt{\text{Var}[X]}$$</p>
 <p><strong>Purpose:</strong> Standard deviation is expressed in the same units as the original random variable, making it more interpretable than variance.</p>
@@ -8547,7 +8523,7 @@ $$\sigma_X = \sqrt{\text{Var}[X]}$$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
-<h2 id="Section-6:-Practical-Examples">Section 6: Practical Examples<a class="anchor-link" href="#Section-6:-Practical-Examples">¶</a></h2><p>HIV Test Example - Complete Calculation</p>
+<h2 id="Section-7:-Practical-Examples">Section 7: Practical Examples<a class="anchor-link" href="#Section-7:-Practical-Examples">¶</a></h2><p>HIV Test Example - Complete Calculation</p>
 <p><strong>Problem Setup:</strong></p>
 <p><strong>Given Information:</strong></p>
 <ul>
@@ -8569,7 +8545,7 @@ $$\sigma_X = \sqrt{\text{Var}[X]}$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="6.1.1-Solution---Single-Test">6.1.1 Solution - Single Test<a class="anchor-link" href="#6.1.1-Solution---Single-Test">¶</a></h4><p><strong>Step 1:</strong> Apply Bayes' theorem:
+<h4 id="7.1-Solution---Single-Test">7.1 Solution - Single Test<a class="anchor-link" href="#7.1-Solution---Single-Test">¶</a></h4><p><strong>Step 1:</strong> Apply Bayes' theorem:
 $$P(H = 1 \mid D_1 = 1) = \frac{P(D_1 = 1 \mid H = 1) P(H = 1)}{P(D_1 = 1)}$$</p>
 <p><strong>Step 2:</strong> Compute $P(D_1 = 1)$ using marginalization:</p>
 <p>$$\begin{aligned}
@@ -8609,7 +8585,7 @@ $$P(H = 1 \mid D_1 = 1) = \frac{P(D_1 = 1 \mid H = 1)P(H = 1)}{P(D_1 = 1)} = \fr
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="6.1.2-Solution---Two-Tests">6.1.2 Solution - Two Tests<a class="anchor-link" href="#6.1.2-Solution---Two-Tests">¶</a></h4><p><strong>Extended Problem:</strong>
+<h4 id="7.2-Solution---Two-Tests">7.2 Solution - Two Tests<a class="anchor-link" href="#7.2-Solution---Two-Tests">¶</a></h4><p><strong>Extended Problem:</strong>
 A second test is administered with properties:</p>
 <ul>
 <li>Sensitivity: $P(D_2 = 1 \mid H = 1) = 0.98$</li>
@@ -8728,7 +8704,7 @@ D2L 2.6 HIV Testing Example Verification
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
-<h2 id="Section-7:-Important-Inequalities-and-Limit-Theorems">Section 7: Important Inequalities and Limit Theorems<a class="anchor-link" href="#Section-7:-Important-Inequalities-and-Limit-Theorems">¶</a></h2><h3 id="7.1-Chebyshev's-Inequality">7.1 Chebyshev's Inequality<a class="anchor-link" href="#7.1-Chebyshev's-Inequality">¶</a></h3><p><strong>Theorem 7.1 (Chebyshev's Inequality):</strong>
+<h2 id="Section-8:-Important-Inequalities-and-Limit-Theorems">Section 8: Important Inequalities and Limit Theorems<a class="anchor-link" href="#Section-8:-Important-Inequalities-and-Limit-Theorems">¶</a></h2><h3 id="8.1-Chebyshev's-Inequality">8.1 Chebyshev's Inequality<a class="anchor-link" href="#8.1-Chebyshev's-Inequality">¶</a></h3><p><strong>Theorem 8.1 (Chebyshev's Inequality):</strong>
 For any random variable $X$ with mean $\mu$ and variance $\sigma^2$, and for any $k &gt; 0$:
 $$P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}$$</p>
 <p><strong>Equivalently:</strong> For any $\epsilon &gt; 0$:
@@ -8764,7 +8740,7 @@ $$P(|X - \mu| \geq \epsilon) \leq \frac{\sigma^2}{\epsilon^2}$$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="7.2-Law-of-Large-Numbers">7.2 Law of Large Numbers<a class="anchor-link" href="#7.2-Law-of-Large-Numbers">¶</a></h3><p><strong>Theorem 7.2 (Weak Law of Large Numbers):</strong>
+<h3 id="8.2-Law-of-Large-Numbers">8.2 Law of Large Numbers<a class="anchor-link" href="#8.2-Law-of-Large-Numbers">¶</a></h3><p><strong>Theorem 8.2 (Weak Law of Large Numbers):</strong>
 Let $X_1, X_2, \ldots, X_n$ be independent and identically distributed (i.i.d.) random variables with mean $\mu$ and finite variance $\sigma^2$. Then the sample average
 $$\bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$$
 converges in probability to $\mu$ as $n \to \infty$:
@@ -8794,7 +8770,7 @@ $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \geq \epsilon) \leq \lim_{n \to \infty
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="7.3-Central-Limit-Theorem">7.3 Central Limit Theorem<a class="anchor-link" href="#7.3-Central-Limit-Theorem">¶</a></h3><p><strong>Theorem 9.3 (Central Limit Theorem):</strong>
+<h3 id="8.3-Central-Limit-Theorem">8.3 Central Limit Theorem<a class="anchor-link" href="#8.3-Central-Limit-Theorem">¶</a></h3><p><strong>Theorem 9.3 (Central Limit Theorem):</strong>
 Let $X_1, X_2, \ldots, X_n$ be i.i.d. random variables with mean $\mu$ and variance $\sigma^2 &lt; \infty$. Then the standardized sample average
 $$Z_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma}$$
 converges in distribution to a standard normal distribution $N(0,1)$ as $n \to \infty$.</p>
@@ -9688,22 +9664,18 @@ P(All Sunny) = 0.7 × 0.8 × 0.75 = 0.41999999999999993
 <li>False negative rate: $P(D = 0 \mid H = 1) = 0.01$ (1%)</li>
 <li>Sensitivity: $P(D = 1 \mid H = 1) = 0.99$ (99%)</li>
 <li>For <strong>infected</strong> ($H = 1$): tests are conditionally <strong>independent</strong></li>
-<li>For <strong>healthy</strong> ($H = 0$): $P(D_2 = 1 \mid D_1 = 1, H = 0) = 0.5$</li>
+<li>For <strong>healthy</strong> ($H = 0$): tests are <strong>coupled</strong> with $P(D_1 = D_2 = 1 \mid H = 0) = 0.02$</li>
 <li>Baseline: $P(H = 1) = 0.0015$</li>
 </ul>
 <hr/>
 <h3 id="Part-(a):-Joint-Probability-Table-for-$D_1,-D_2$-given-$H-=-0$">Part (a): Joint Probability Table for $D_1, D_2$ given $H = 0$<a class="anchor-link" href="#Part-(a):-Joint-Probability-Table-for-$D_1,-D_2$-given-$H-=-0$">¶</a></h3><p><strong>Step 1:</strong> Marginal probabilities for $D_1$ given $H = 0$:
 $$P(D_1 = 1 \mid H = 0) = 0.10, \quad P(D_1 = 0 \mid H = 0) = 0.90$$</p>
-<p><strong>Step 2:</strong> Conditional probabilities for $D_2$:</p>
-<ul>
-<li>$P(D_2 = 1 \mid D_1 = 1, H = 0) = 0.50$ (given)</li>
-<li>$P(D_2 = 1 \mid D_1 = 0, H = 0) = 0.10$ (assume marginal when $D_1 = 0$)</li>
-</ul>
-<p><strong>Step 3:</strong> Compute joint probabilities:
-$$P(D_1 = 0, D_2 = 0 \mid H = 0) = 0.90 \times 0.90 = 0.81$$
-$$P(D_1 = 0, D_2 = 1 \mid H = 0) = 0.90 \times 0.10 = 0.09$$
-$$P(D_1 = 1, D_2 = 0 \mid H = 0) = 0.10 \times 0.50 = 0.05$$
-$$P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.10 \times 0.50 = 0.05$$</p>
+<p><strong>Step 2:</strong> We know $P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.02$ (given)</p>
+<p><strong>Step 3:</strong> Find remaining joint probabilities:</p>
+<p>$$P(D_1 = 1, D_2 = 0 \mid H = 0) = P(D_1 = 1 \mid H = 0) - P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.10 - 0.02 = 0.08$$</p>
+<p>By symmetry, $P(D_2 = 1 \mid H = 0) = 0.10$ (same false positive rate):</p>
+<p>$$P(D_1 = 0, D_2 = 1 \mid H = 0) = P(D_2 = 1 \mid H = 0) - P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.10 - 0.02 = 0.08$$</p>
+<p>$$P(D_1 = 0, D_2 = 0 \mid H = 0) = 1 - 0.02 - 0.08 - 0.08 = 0.82$$</p>
 <p><strong>Joint Probability Table:</strong></p>
 <table>
 <thead>
@@ -9717,20 +9689,20 @@ $$P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.10 \times 0.50 = 0.05$$</p>
 <tbody>
 <tr>
 <td>$D_1 = 0$</td>
-<td>0.81</td>
-<td>0.09</td>
+<td>0.82</td>
+<td>0.08</td>
 <td>0.90</td>
 </tr>
 <tr>
 <td>$D_1 = 1$</td>
-<td>0.05</td>
-<td>0.05</td>
+<td>0.08</td>
+<td>0.02</td>
 <td>0.10</td>
 </tr>
 <tr>
 <td><strong>Marginal</strong></td>
-<td>0.86</td>
-<td>0.14</td>
+<td>0.90</td>
+<td>0.10</td>
 <td>1.00</td>
 </tr>
 </tbody>
@@ -9739,20 +9711,23 @@ $$P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.10 \times 0.50 = 0.05$$</p>
 <h3 id="Part-(b):-$P(H-=-1-%5Cmid-D_1-=-1)$">Part (b): $P(H = 1 \mid D_1 = 1)$<a class="anchor-link" href="#Part-(b):-$P(H-=-1-%5Cmid-D_1-=-1)$">¶</a></h3><p>Using Bayes' Theorem:
 $$P(H = 1 \mid D_1 = 1) = \frac{P(D_1 = 1 \mid H = 1) \cdot P(H = 1)}{P(D_1 = 1)}$$</p>
 <p><strong>Compute $P(D_1 = 1)$:</strong>
-$$P(D_1 = 1) = 0.99 \times 0.0015 + 0.10 \times 0.9985 = 0.001485 + 0.09985 = 0.101335$$</p>
+$$P(D_1 = 1) = P(D_1 = 1 \mid H = 1) \cdot P(H = 1) + P(D_1 = 1 \mid H = 0) \cdot P(H = 0)$$
+$$= 0.99 \times 0.0015 + 0.10 \times 0.9985 = 0.001485 + 0.09985 = 0.101335$$</p>
 <p><strong>Apply Bayes:</strong>
 $$P(H = 1 \mid D_1 = 1) = \frac{0.99 \times 0.0015}{0.101335} = \frac{0.001485}{0.101335} \approx 0.0147 = 1.47\%$$</p>
 <hr/>
 <h3 id="Part-(c):-$P(H-=-1-%5Cmid-D_1-=-1,-D_2-=-1)$">Part (c): $P(H = 1 \mid D_1 = 1, D_2 = 1)$<a class="anchor-link" href="#Part-(c):-$P(H-=-1-%5Cmid-D_1-=-1,-D_2-=-1)$">¶</a></h3><p><strong>For $H = 1$ (infected, tests independent):</strong>
-$$P(D_1 = 1, D_2 = 1 \mid H = 1) = 0.99 \times 0.99 = 0.9801$$</p>
+$$P(D_1 = 1, D_2 = 1 \mid H = 1) = P(D_1 = 1 \mid H = 1) \times P(D_2 = 1 \mid H = 1) = 0.99 \times 0.99 = 0.9801$$</p>
 <p><strong>For $H = 0$ (healthy, from table):</strong>
-$$P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.05$$</p>
+$$P(D_1 = 1, D_2 = 1 \mid H = 0) = 0.02$$</p>
 <p><strong>Compute $P(D_1 = 1, D_2 = 1)$:</strong>
-$$P(D_1 = 1, D_2 = 1) = 0.9801 \times 0.0015 + 0.05 \times 0.9985 = 0.00147 + 0.04993 = 0.0514$$</p>
+$$P(D_1 = 1, D_2 = 1) = P(D_1 = 1, D_2 = 1 \mid H = 1) \cdot P(H = 1) + P(D_1 = 1, D_2 = 1 \mid H = 0) \cdot P(H = 0)$$
+$$= 0.9801 \times 0.0015 + 0.02 \times 0.9985 = 0.00147015 + 0.01997 = 0.02144015$$</p>
 <p><strong>Apply Bayes:</strong>
-$$P(H = 1 \mid D_1 = 1, D_2 = 1) = \frac{0.00147}{0.0514} \approx 0.0286 = 2.86\%$$</p>
+$$P(H = 1 \mid D_1 = 1, D_2 = 1) = \frac{P(D_1 = 1, D_2 = 1 \mid H = 1) \cdot P(H = 1)}{P(D_1 = 1, D_2 = 1)}$$
+$$= \frac{0.00147015}{0.02144015} \approx 0.0686 = 6.86\% \approx 6.8\%$$</p>
 <hr/>
-<h3 id="Comparison:-Dependent-vs-Independent">Comparison: Dependent vs Independent<a class="anchor-link" href="#Comparison:-Dependent-vs-Independent">¶</a></h3><table>
+<h3 id="Comparison:-Coupled-vs-Independent">Comparison: Coupled vs Independent<a class="anchor-link" href="#Comparison:-Coupled-vs-Independent">¶</a></h3><table>
 <thead>
 <tr>
 <th>Scenario</th>
@@ -9765,16 +9740,18 @@ $$P(H = 1 \mid D_1 = 1, D_2 = 1) = \frac{0.00147}{0.0514} \approx 0.0286 = 2.86\
 <td>1.47%</td>
 </tr>
 <tr>
-<td>Both positive (DEPENDENT)</td>
-<td><strong>2.86%</strong></td>
+<td>Both positive (COUPLED)</td>
+<td><strong>6.8%</strong></td>
 </tr>
 <tr>
 <td>Both positive (INDEPENDENT)</td>
-<td>~12.9%</td>
+<td><strong>~83%</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Insight:</strong> Conditional dependence significantly reduces the evidential value of the second test!</p>
+<p><strong>Key Insight:</strong> Conditional dependence (coupling) significantly reduces the evidential value of the second test!</p>
+<p>When both tests use similar mechanisms, false positives tend to occur together. This means the second positive test provides much less new information than if the tests were independent.</p>
+<p><strong>Intuition:</strong> If one test gives a false positive, the other is likely to give a false positive too due to coupling → greatly reduces diagnostic confidence.</p>
 </div>
 </div>
 </div>
@@ -9783,7 +9760,7 @@ $$P(H = 1 \mid D_1 = 1, D_2 = 1) = \frac{0.00147}{0.0514} \approx 0.0286 = 2.86\
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -9792,75 +9769,103 @@ $$P(H = 1 \mid D_1 = 1, D_2 = 1) = \frac{0.00147}{0.0514} \approx 0.0286 = 2.86\
 <span class="nb">print</span><span class="p">(</span><span class="s2">"EXERCISE 7: MEDICAL TESTING WITH CONDITIONAL DEPENDENCE"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
-<span class="c1"># Given data (from D2L 2.6)</span>
-<span class="n">p_disease</span> <span class="o">=</span> <span class="mf">0.0015</span>
-<span class="n">p_healthy</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_disease</span>
+<span class="c1"># Given data (from D2L 2.6.5)</span>
+<span class="n">p_disease</span> <span class="o">=</span> <span class="mf">0.0015</span>  <span class="c1"># P(H=1)</span>
+<span class="n">p_healthy</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_disease</span>  <span class="c1"># P(H=0)</span>
 
 <span class="c1"># Test characteristics</span>
 <span class="n">false_positive</span> <span class="o">=</span> <span class="mf">0.10</span>  <span class="c1"># P(D=1 | H=0)</span>
 <span class="n">false_negative</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># P(D=0 | H=1)</span>
 <span class="n">sensitivity</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">false_negative</span>  <span class="c1"># P(D=1 | H=1) = 0.99</span>
 
-<span class="c1"># Conditional dependence for healthy patients</span>
-<span class="n">p_d2_given_d1_h0</span> <span class="o">=</span> <span class="mf">0.50</span>  <span class="c1"># P(D2=1 | D1=1, H=0)</span>
-<span class="n">p_d2_given_not_d1_h0</span> <span class="o">=</span> <span class="n">false_positive</span>  <span class="c1"># P(D2=1 | D1=0, H=0) = 0.10</span>
+<span class="c1"># Conditional dependence for healthy patients (COUPLING)</span>
+<span class="n">p_d1_d2_given_h0</span> <span class="o">=</span> <span class="mf">0.02</span>  <span class="c1"># P(D1=1, D2=1 | H=0) - GIVEN IN PROBLEM</span>
 
-<span class="c1"># Part (a): Joint probability table</span>
+<span class="c1"># Part (a): Joint probability table for H=0</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Part (a): Joint Probability Table P(D1, D2 | H=0)"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
+<span class="n">p_d1_1_h0</span> <span class="o">=</span> <span class="n">false_positive</span>  <span class="c1"># 0.10</span>
 <span class="n">p_d1_0_h0</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">false_positive</span>  <span class="c1"># 0.90</span>
-<span class="n">p_d1_1_h0</span> <span class="o">=</span> <span class="n">false_positive</span>       <span class="c1"># 0.10</span>
+<span class="n">p_d2_1_h0</span> <span class="o">=</span> <span class="n">false_positive</span>  <span class="c1"># 0.10 (by symmetry)</span>
 
-<span class="n">p_00</span> <span class="o">=</span> <span class="n">p_d1_0_h0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_d2_given_not_d1_h0</span><span class="p">)</span>  <span class="c1"># 0.90 * 0.90 = 0.81</span>
-<span class="n">p_01</span> <span class="o">=</span> <span class="n">p_d1_0_h0</span> <span class="o">*</span> <span class="n">p_d2_given_not_d1_h0</span>         <span class="c1"># 0.90 * 0.10 = 0.09</span>
-<span class="n">p_10</span> <span class="o">=</span> <span class="n">p_d1_1_h0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_d2_given_d1_h0</span><span class="p">)</span>       <span class="c1"># 0.10 * 0.50 = 0.05</span>
-<span class="n">p_11</span> <span class="o">=</span> <span class="n">p_d1_1_h0</span> <span class="o">*</span> <span class="n">p_d2_given_d1_h0</span>             <span class="c1"># 0.10 * 0.50 = 0.05</span>
+<span class="c1"># Calculate joint probabilities</span>
+<span class="n">p_11</span> <span class="o">=</span> <span class="n">p_d1_d2_given_h0</span>  <span class="c1"># 0.02 (given)</span>
+<span class="n">p_10</span> <span class="o">=</span> <span class="n">p_d1_1_h0</span> <span class="o">-</span> <span class="n">p_11</span>  <span class="c1"># 0.10 - 0.02 = 0.08</span>
+<span class="n">p_01</span> <span class="o">=</span> <span class="n">p_d2_1_h0</span> <span class="o">-</span> <span class="n">p_11</span>  <span class="c1"># 0.10 - 0.02 = 0.08</span>
+<span class="n">p_00</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_11</span> <span class="o">-</span> <span class="n">p_10</span> <span class="o">-</span> <span class="n">p_01</span>  <span class="c1"># 1 - 0.02 - 0.08 - 0.08 = 0.82</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"           D2=0      D2=1      Marginal"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"D1=0      </span><span class="si">{</span><span class="n">p_00</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      </span><span class="si">{</span><span class="n">p_01</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      </span><span class="si">{</span><span class="n">p_d1_0_h0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"D1=1      </span><span class="si">{</span><span class="n">p_10</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      </span><span class="si">{</span><span class="n">p_11</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      </span><span class="si">{</span><span class="n">p_d1_1_h0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Marginal  </span><span class="si">{</span><span class="n">p_00</span><span class="o">+</span><span class="n">p_10</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      </span><span class="si">{</span><span class="n">p_01</span><span class="o">+</span><span class="n">p_11</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">      1.00"</span><span class="p">)</span>
 
+<span class="c1"># Verification</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Verification: Sum = </span><span class="si">{</span><span class="n">p_00</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p_01</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p_10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p_11</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
 <span class="c1"># Part (b): P(H=1 | D1=1)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Part (b): P(H=1 | D1=1)"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
+<span class="c1"># Calculate P(D1=1) using law of total probability</span>
 <span class="n">p_d1_1</span> <span class="o">=</span> <span class="n">sensitivity</span> <span class="o">*</span> <span class="n">p_disease</span> <span class="o">+</span> <span class="n">false_positive</span> <span class="o">*</span> <span class="n">p_healthy</span>
-<span class="n">p_h1_given_d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">sensitivity</span> <span class="o">*</span> <span class="n">p_disease</span><span class="p">)</span> <span class="o">/</span> <span class="n">p_d1_1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1) = P(D1=1|H=1)·P(H=1) + P(D1=1|H=0)·P(H=0)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"        = </span><span class="si">{</span><span class="n">sensitivity</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">p_disease</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">false_positive</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">p_healthy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"        = </span><span class="si">{</span><span class="n">sensitivity</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_disease</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">false_positive</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_healthy</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"        = </span><span class="si">{</span><span class="n">p_d1_1</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1) = </span><span class="si">{</span><span class="n">p_d1_1</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(H=1 | D1=1) = </span><span class="si">{</span><span class="n">p_h1_given_d1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_d1</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="c1"># Apply Bayes' theorem</span>
+<span class="n">p_h1_given_d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">sensitivity</span> <span class="o">*</span> <span class="n">p_disease</span><span class="p">)</span> <span class="o">/</span> <span class="n">p_d1_1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">P(H=1 | D1=1) = P(D1=1|H=1)·P(H=1) / P(D1=1)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"              = </span><span class="si">{</span><span class="n">sensitivity</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_disease</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">p_d1_1</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"              = </span><span class="si">{</span><span class="n">p_h1_given_d1</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_d1</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 
 <span class="c1"># Part (c): P(H=1 | D1=1, D2=1)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Part (c): P(H=1 | D1=1, D2=1)"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
-<span class="n">p_d1_d2_given_h1</span> <span class="o">=</span> <span class="n">sensitivity</span> <span class="o">*</span> <span class="n">sensitivity</span>  <span class="c1"># 0.99 * 0.99 = 0.9801</span>
-<span class="n">p_d1_d2_given_h0</span> <span class="o">=</span> <span class="n">p_11</span>  <span class="c1"># 0.05</span>
+<span class="c1"># For H=1 (infected): tests are independent</span>
+<span class="n">p_d1_d2_given_h1</span> <span class="o">=</span> <span class="n">sensitivity</span> <span class="o">*</span> <span class="n">sensitivity</span>  <span class="c1"># 0.99 × 0.99 = 0.9801</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1, D2=1 | H=1) = </span><span class="si">{</span><span class="n">sensitivity</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">sensitivity</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_d1_d2_given_h1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
+<span class="c1"># For H=0 (healthy): tests are coupled</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1, D2=1 | H=0) = </span><span class="si">{</span><span class="n">p_d1_d2_given_h0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (given - coupling)"</span><span class="p">)</span>
+
+<span class="c1"># Calculate P(D1=1, D2=1) using law of total probability</span>
 <span class="n">p_d1_d2</span> <span class="o">=</span> <span class="n">p_d1_d2_given_h1</span> <span class="o">*</span> <span class="n">p_disease</span> <span class="o">+</span> <span class="n">p_d1_d2_given_h0</span> <span class="o">*</span> <span class="n">p_healthy</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">P(D1=1, D2=1) = </span><span class="si">{</span><span class="n">p_d1_d2_given_h1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">p_disease</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">p_d1_d2_given_h0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">p_healthy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"              = </span><span class="si">{</span><span class="n">p_d1_d2_given_h1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_disease</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">p_d1_d2_given_h0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_healthy</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"              = </span><span class="si">{</span><span class="n">p_d1_d2</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Apply Bayes' theorem</span>
 <span class="n">p_h1_given_both</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_d1_d2_given_h1</span> <span class="o">*</span> <span class="n">p_disease</span><span class="p">)</span> <span class="o">/</span> <span class="n">p_d1_d2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">P(H=1 | D1=1, D2=1) = </span><span class="si">{</span><span class="n">p_d1_d2_given_h1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p_disease</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">p_d1_d2</span><span class="si">:</span><span class="s2">.8f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"                    = </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1, D2=1 | H=1) = </span><span class="si">{</span><span class="n">p_d1_d2_given_h1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1, D2=1 | H=0) = </span><span class="si">{</span><span class="n">p_d1_d2_given_h0</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(D1=1, D2=1) = </span><span class="si">{</span><span class="n">p_d1_d2</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">P(H=1 | D1=1, D2=1) = </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
-
-<span class="c1"># Comparison</span>
+<span class="c1"># Comparison with independent case</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Comparison: Dependent vs Independent"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Comparison: Coupled vs Independent Tests"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 
-<span class="n">p_d1_d2_given_h0_indep</span> <span class="o">=</span> <span class="n">false_positive</span> <span class="o">*</span> <span class="n">false_positive</span>  <span class="c1"># 0.01</span>
+<span class="c1"># Calculate for independent case</span>
+<span class="n">p_d1_d2_given_h0_indep</span> <span class="o">=</span> <span class="n">false_positive</span> <span class="o">*</span> <span class="n">false_positive</span>  <span class="c1"># 0.10 × 0.10 = 0.01</span>
 <span class="n">p_d1_d2_indep</span> <span class="o">=</span> <span class="n">p_d1_d2_given_h1</span> <span class="o">*</span> <span class="n">p_disease</span> <span class="o">+</span> <span class="n">p_d1_d2_given_h0_indep</span> <span class="o">*</span> <span class="n">p_healthy</span>
 <span class="n">p_h1_given_both_indep</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_d1_d2_given_h1</span> <span class="o">*</span> <span class="n">p_disease</span><span class="p">)</span> <span class="o">/</span> <span class="n">p_d1_d2_indep</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(H=1 | both positive, DEPENDENT):   </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"P(H=1 | both positive, INDEPENDENT): </span><span class="si">{</span><span class="n">p_h1_given_both_indep</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">p_h1_given_both_indep</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">→ Conditional dependence REDUCES evidential value!"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Scenario'</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'P(Disease | Evidence)'</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'One positive test'</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p_h1_given_d1</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Both positive (COUPLED)'</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Both positive (INDEPENDENT)'</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">p_h1_given_both_indep</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"KEY INSIGHT:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coupling reduces probability from </span><span class="si">{</span><span class="n">p_h1_given_both_indep</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% → </span><span class="si">{</span><span class="n">p_h1_given_both</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"When false positives occur together (coupling), the second test"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"provides much LESS information than if tests were independent!"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -9881,32 +9886,52 @@ EXERCISE 7: MEDICAL TESTING WITH CONDITIONAL DEPENDENCE
 Part (a): Joint Probability Table P(D1, D2 | H=0)
 ------------------------------------------------------------
            D2=0      D2=1      Marginal
-D1=0      0.81      0.09      0.90
-D1=1      0.05      0.05      0.10
-Marginal  0.86      0.14      1.00
+D1=0      0.82      0.08      0.90
+D1=1      0.08      0.02      0.10
+Marginal  0.90      0.10      1.00
+
+Verification: Sum = 1.00
 
 ============================================================
 Part (b): P(H=1 | D1=1)
 ------------------------------------------------------------
-P(D1=1) = 0.101335
-P(H=1 | D1=1) = 0.0147 = 1.47%
+P(D1=1) = P(D1=1|H=1)·P(H=1) + P(D1=1|H=0)·P(H=0)
+        = 0.99 × 0.0015 + 0.1 × 0.9985
+        = 0.001485 + 0.099850
+        = 0.101335
+
+P(H=1 | D1=1) = P(D1=1|H=1)·P(H=1) / P(D1=1)
+              = 0.001485 / 0.101335
+              = 0.014654 = 1.47%
 
 ============================================================
 Part (c): P(H=1 | D1=1, D2=1)
 ------------------------------------------------------------
-P(D1=1, D2=1 | H=1) = 0.9801
-P(D1=1, D2=1 | H=0) = 0.0500
-P(D1=1, D2=1) = 0.051395
+P(D1=1, D2=1 | H=1) = 0.99 × 0.99 = 0.9801
+P(D1=1, D2=1 | H=0) = 0.02 (given - coupling)
 
-P(H=1 | D1=1, D2=1) = 0.0286 = 2.86%
+P(D1=1, D2=1) = 0.9801 × 0.0015 + 0.02 × 0.9985
+              = 0.00147015 + 0.01997000
+              = 0.02144015
+
+P(H=1 | D1=1, D2=1) = 0.00147015 / 0.02144015
+                    = 0.068570 = 6.86%
 
 ============================================================
-Comparison: Dependent vs Independent
+Comparison: Coupled vs Independent Tests
 ------------------------------------------------------------
-P(H=1 | both positive, DEPENDENT):   0.0286 = 2.86%
-P(H=1 | both positive, INDEPENDENT): 0.1283 = 12.83%
+Scenario                            P(Disease | Evidence)
+------------------------------------------------------------
+One positive test                     1.47%
+Both positive (COUPLED)               6.86%
+Both positive (INDEPENDENT)          12.83%
 
-→ Conditional dependence REDUCES evidential value!
+============================================================
+KEY INSIGHT:
+============================================================
+Coupling reduces probability from 12.8% → 6.9%
+When false positives occur together (coupling), the second test
+provides much LESS information than if tests were independent!
 ============================================================
 </pre>
 </div>
