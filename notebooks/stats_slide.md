@@ -14,7 +14,7 @@ style: |
 Hypothesis Testing & Confusion Matrix
 ---
 ---
-### **1. Hypothesis Testing Setup**
+## 1. Hypothesis Testing Setup
 Hypothesis:
 $$
 H_0 : \text{null hypothesis}
@@ -28,7 +28,7 @@ In practice, we make a decision:
 
 ---
 
-### **2. Four Possible Outcomes (Confusion Matrix View)**
+## 2. Four Possible Outcomes (Confusion Matrix View)
 
 **Machine learning confusion matrix**
 
@@ -42,7 +42,7 @@ In practice, we make a decision:
 
 ---
 
-### **Base knowledge**
+## Base knowledge
 In $(22.10.5)$, 
 $$
 \text{statistical significance} 
@@ -68,7 +68,7 @@ Note:
 
 ---
 
-### **Mapping into Machine learning Confusion Matrix**
+## Mapping into Machine learning Confusion Matrix
 |  | Predict Positive | Predict Negative |
 |--------------------|-----------------|------------------|
 | **Actual Positive**    | True Positive <br> $=$ Correct decision   | False Negative $=\beta$ <br> $=P(\text{fail to reject } H_0 \mid H_0 \text{ is false})$   |
@@ -76,7 +76,7 @@ Note:
 
 ---
 
-### **Example**
+## Example
 
 Hypothesis: Finding out new drug effect or Not on a group of patients.
 
@@ -92,7 +92,7 @@ $$
 | **Actual Not Effect**    | False Positive $=\alpha$<br>$=P(\text{reject } H_0 \mid H_0 \text{ is true})$  | True Negative <br> $=$ Correct decision   |
 
 ---
-**Intepretation**
+## Intepretation
 - Type I error rate (FP):
     - False alarm - **Falsely** "discover" something. 
     *[Discover something exist, however, it does not.]*
@@ -104,7 +104,7 @@ $$
     - In ML terms: you predicted “negative” when truth is positive.
 
 ---
-**Some reasons may lead to that and solvings:**
+## Some reasons may lead to that and solvings
 
 - Type I error rate (FP):
     - Random noise sample (Sample selection technique)
