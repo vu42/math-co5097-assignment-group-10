@@ -127,3 +127,12 @@ Vietnam COVID-19 Screening Example:
 - **Null-Hypothesis $(H_0)$**: A person does not have COVID-19. 
 - **Type I error (FP)**: The **test says a person has COVID-19** when they are **actually healthy**. Which leads to unnecessary isolation, anxiety, and resource use.
 - **Type II error (FN):** The **test says a person is healthy** when they **actually have COVID-19**. Leads to undetected spread and delayed treatment.
+
+---
+## Reference 
+
+[1] D. Zhang, Z. C. Lipton, M. Li, and A. J. Smola "Statistics," in *Mathematics for Deep Learning*, d2l.ai. Available: https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/statistics.html
+
+[2] C. J. Geyer, "Models, Parameters, and Statistics," University of Minnesota, Minneapolis, MN, USA. Available: https://www.stat.umn.edu/geyer/old/5102/n2.pdf
+
+[3] "Type I and type II errors," *Wikipedia*, Wikimedia Foundation, Available: https://en.wikipedia.org/wiki/Type_I_and_type_II_errors.
