@@ -6,9 +6,41 @@ from datetime import datetime
 def generate_index(report_dir="report"):
     """Generate an index.html file that links to all HTML files in the report directory."""
     report_path = Path(report_dir)
-    html_files = sorted(
-        [f for f in report_path.glob("*.html") if f.name != "index.html"]
-    )
+    
+    # Define the desired order for table of contents
+    # Files will be ordered based on this list; any unlisted files will appear at the end
+    file_order = [
+        "probability_and_statistics.html",
+        "random_variables.html",
+        "maximum_likelihood.html",
+        "distributions.html",
+        "naive_bayes.html",
+        "statistics.html",
+    ]
+    
+    # Mapping from filename to display name with section numbers
+    display_names = {
+        "probability_and_statistics.html": "2.6 Probability and Statistics",
+        "random_variables.html": "22.6 Random Variables",
+        "maximum_likelihood.html": "22.7 Maximum Likelihood",
+        "distributions.html": "22.8 Distributions",
+        "naive_bayes.html": "22.9 Naive Bayes",
+        "statistics.html": "22.10 Statistics",
+    }
+    
+    all_html_files = [f for f in report_path.glob("*.html") if f.name != "index.html"]
+    
+    # Create ordered list based on file_order, then append any remaining files
+    html_files = []
+    for filename in file_order:
+        matching = [f for f in all_html_files if f.name == filename]
+        if matching:
+            html_files.append(matching[0])
+    
+    # Add any files not in the predefined order (sorted alphabetically)
+    ordered_names = set(file_order)
+    remaining = sorted([f for f in all_html_files if f.name not in ordered_names])
+    html_files.extend(remaining)
 
     # Course info
     course_name = "Mathematics Foundations for Computer Science - CO5097"
@@ -199,13 +231,10 @@ def generate_index(report_dir="report"):
 
     for html_file in html_files:
         file_name = html_file.stem
-        display_name = file_name.replace("_", " ").title()
-        mod_time = datetime.fromtimestamp(html_file.stat().st_mtime).strftime(
-            "%Y-%m-%d %H:%M"
-        )
+        # Use custom display name if available, otherwise use default title case
+        display_name = display_names.get(html_file.name, file_name.replace("_", " ").title())
         html_content += f"""        <li>
             <a href="{html_file.name}">{display_name}</a>
-            <div class="meta">Last updated: {mod_time}</div>
         </li>
 """
 
