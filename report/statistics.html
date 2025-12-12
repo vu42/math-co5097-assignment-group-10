@@ -7586,6 +7586,8 @@ a.anchor-link {
 <li>First, $\theta$ is a scalar value. The extended version of $\theta$ is a vector or a tensor is way more easily to explain later on.</li>
 <li>$\hat{\theta}_n$ is an estimator of $\theta$ that depends on a sample of size $n$.</li>
 <li>$\mu_n$ mean value of estimator.</li>
+<li>$T(X)$ is the distribution of the test statistic under our null hypothesis.</li>
+<li>$T(x)$ is test statistic described as a scalar summary of the sample data, used to distinguish between hypotheses.</li>
 </ol>
 <p><strong>Glossaries:</strong></p>
 <ol>
@@ -7784,7 +7786,7 @@ $$
 E[\mu_n - \theta] = \mu_n - \theta 
 $$
 $$ 
-E[(\mu_n - \theta)^2] = (\mu_n - \theta)^2 
+E[(\mu_n - \theta)^2] = (\mu_n - \theta)^2 = (\mathrm{bias}(\hat{\theta}_n))^2
 $$
 From $(6)$ having $\mu_n$, thus,
 $$
@@ -7821,6 +7823,44 @@ Hence, no extra $\operatorname{Var}(\theta)$
 $$
 \mathrm{MSE}(\hat{\theta}_n, \theta) = \textrm{Var}(\hat{\theta}_n) + (\mathrm{bias}(\hat{\theta}_n))^2 \tag{10}
 $$</p>
+<p>However, this statement in reality is impossible to happen. Due to, irreducible error is not due to the model being "wrong" or "unstable." It arises because real-world outcomes include randomness that features do not capture.
+Hence, in practical, equation provided $(22.10.4)$ is true and could understand by follwing explaination:</p>
+<p>$$
+\mathrm{MSE}(\hat{\theta}_n, \theta)
+= \underbrace{\textrm{Var}(\hat{\theta}_n)}_{\text{Variance}} + \underbrace{(\mathrm{bias}(\hat{\theta}_n))^2}_{\text{Bias}^2} + \underbrace{\operatorname{Var}(\theta)}_{\text{Irreducible error}} .
+$$</p>
+<p>This identity is the foundation of the bias–variance trade-off.</p>
+<ul>
+<li><strong>$Bias^2$</strong> quantifies <em>systematic error</em>: how far the average model prediction is from the true function.</li>
+<li><strong>Variance</strong> quantifies <em>instability</em>: reflects sensitivity to random fluctuations in the training data.</li>
+<li><strong>Irreducible error</strong>  quantifies <em>intrinsic noise</em>: randomness in the outcome that cannot be explained by features, even if the true function $ f $ were known.</li>
+</ul>
+<p><strong>Why this is called a "trade-off":</strong></p>
+<p>In practice, model design often involves choosing complexity (e.g., number of parameters, depth of a tree, regularization strength). Model complexity affects bias and variance in opposite directions:</p>
+<ul>
+<li><strong>Simpler models</strong> tend to have <strong>higher bias</strong> but <strong>lower variance</strong>.</li>
+<li><strong>More complex models</strong> tend to have <strong>lower bias</strong> but <strong>higher variance</strong>.</li>
+</ul>
+<p>Because improving one component can worsen the other, model selection is a balancing act: Reducing bias without exploding variance, or reducing variance without oversimplifying.</p>
+<p><strong>High bias</strong>: underfitting and lack of flexibility occurs when the model class is too restrictive to represent the true relationship between features and outcomes.</p>
+<ul>
+<li><strong>Example pattern:</strong> A linear model fitted to a strongly nonlinear relationship.</li>
+<li><strong>Consequence:</strong> Even with large datasets, the model remains systematically wrong.</li>
+</ul>
+<p>This is commonly referred to as <strong>underfitting</strong> (or <em>lack of flexibility</em>): the model cannot capture higher-dimensional or nonlinear structure, so its predictions remain consistently off target.</p>
+<p><strong>High variance</strong>: overfitting and poor generalization occurs when a model is overly flexible relative to the available data.</p>
+<ul>
+<li><strong>Example pattern:</strong> A very deep decision tree trained on a small dataset.</li>
+<li><strong>Consequence:</strong> The model fits not only signal but also noise, and small changes in training data lead to large changes in the learned model.</li>
+</ul>
+<p>This is commonly referred to as <strong>overfitting</strong> and leads to <strong>poor generalization</strong>: performance appears strong on training data but degrades on new data.</p>
+<p><strong>Practical Keynotes</strong></p>
+<ul>
+<li><p>When <strong>MSE</strong> is  large, investigate whether the dominant source is bias (underfitting), variance (overfitting).</p>
+</li>
+<li><p>Tuning model complexity and regularization is fundamentally about navigating the bias–variance trade-off.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7912,7 +7952,7 @@ $$</li>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -8073,6 +8113,10 @@ Noted that,</p>
 <li><p>Otherwise, conclude that "lack evidence to reject" $H_0$ .</p>
 </li>
 <li><p>For a given distribution, the rejection region is the set of points with 𝑝 $p$-value &lt; $\alpha$.</p>
+</li>
+<li><p>$T(X)$ is the distribution of the test statistic under our null hypothesis.</p>
+</li>
+<li><p>$T(x)$ is test statistic described as a scalar summary of the sample data, used to distinguish between hypotheses.</p>
 </li>
 </ul>
 <p>However, $(22.10.7)$ is correct only for the right-tailed test. For the left-tailed test demonstrate as follow,</p>
@@ -8713,7 +8757,7 @@ Those intervals:</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
