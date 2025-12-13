@@ -7756,56 +7756,18 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="22.10.1.4.-The-Bias-Variance-Trade-off">22.10.1.4. The Bias-Variance Trade-off<a class="anchor-link" href="#22.10.1.4.-The-Bias-Variance-Trade-off">¶</a></h2><p>From $(6)$, Having,
-$$
-\mu_n = E[\hat{\theta}_n] 
-$$
-From $(7)$; Having,
-$$
-\mathrm{bias}(\hat{\theta}_n) = E[\hat{\theta}_n - \theta] = E[\varepsilon_n] = E[\hat{\theta}_n] - \theta
-= \mu_n - \theta 
-$$
-From $(22.10.3)$; Having,
-$$
-\textrm{Var}(\hat{\theta}_n) = E[(\hat{\theta}_n - E[\hat{\theta}_n])^2] = E[(\hat{\theta}_n - \mu_n)^2]
-$$</p>
-<p>From $(22.10.1)$ in the part of MSE,
-$$
-\begin{aligned}
-
-\mathrm{MSE}(\hat{\theta}_n, \theta) 
-&amp;= E\left[(\hat{\theta}_n - \theta)^2\right] \\[6pt]
-&amp;= E\left[((\hat{\theta}_n - \mu_n) + (\mu_n - \theta))^2\right] \\[6pt]
-&amp;= E[(\hat{\theta}_n - \mu_n)^2] + 2\,E[(\hat{\theta}_n - \mu_n)(\mu_n - \hat{\theta}_n)] + E[(\mu_n - \theta)^2] \\[6pt]
-&amp;= E[(\hat{\theta}_n - \mu_n)^2] + 2\,E[\hat{\theta}_n - \mu_n]\,E[\mu_n - \theta] + E[(\mu_n - \theta)^2] \\[6pt]
-
-\end{aligned}
-$$</p>
-<p>Having, $\mu_n$ and $\theta$ are both constant, thus,
-$$ 
-E[\mu_n - \theta] = \mu_n - \theta 
-$$
-$$ 
-E[(\mu_n - \theta)^2] = (\mu_n - \theta)^2 = (\mathrm{bias}(\hat{\theta}_n))^2
-$$
-From $(6)$ having $\mu_n$, thus,
-$$
-E[\hat{\theta}_n - \mu_n] = E[\hat{\theta}_n] - \mu_n = \mu_n - \mu_n = 0
-$$</p>
-<p>Hence,
-$$
-\mathrm{MSE}(\hat{\theta}_n, \theta) = \textrm{Var}(\hat{\theta}_n) + (\mathrm{bias}(\hat{\theta}_n))^2 
-$$</p>
-<p>Nevertheless, in [1], equation provided $(22.10.4)$</p>
-<p>$$
+<h2 id="22.10.1.4.-The-Bias-Variance-Trade-off">22.10.1.4. The Bias-Variance Trade-off<a class="anchor-link" href="#22.10.1.4.-The-Bias-Variance-Trade-off">¶</a></h2><p>$$
 \begin{aligned}
 
 \mathrm{MSE}(\hat{\theta}_n, \theta)
 &amp;= E\!\left[(\hat{\theta}_n - \theta)^2\right] \\[6pt]
-&amp;= E[\hat{\theta}_n^2] + E[\theta^2] - 2\,E[\hat{\theta}_n \theta] \\[6pt]
+&amp;= E[(\hat{\theta}_n)^2] + E[\theta^2] - 2\,E[\hat{\theta}_n \theta] \\[6pt]
 &amp;= \operatorname{Var}(\hat{\theta}_n) + E[\hat{\theta}_n]^2
    + \operatorname{Var}(\theta) + E[\theta]^2
    - 2\,E[\hat{\theta}_n]E[\theta] \\[6pt]
+&amp;= E[\hat{\theta}_n]^2 - 2\,E[\hat{\theta}_n]E[\theta] + E[\theta]^2 
+   + \operatorname{Var}(\hat{\theta}_n) 
+   + \operatorname{Var}(\theta)\\[6pt]
 &amp;= \bigl(E[\hat{\theta}_n] - E[\theta]\bigr)^2
    + \operatorname{Var}(\hat{\theta}_n)
    + \operatorname{Var}(\theta) \\[6pt]
@@ -7818,13 +7780,8 @@ $$</p>
 
 \end{aligned}
 $$</p>
-<p>Noted that, $\theta$ is constant. So, $\operatorname{Var}(\theta) = 0$
-Hence, no extra $\operatorname{Var}(\theta)$
-$$
-\mathrm{MSE}(\hat{\theta}_n, \theta) = \textrm{Var}(\hat{\theta}_n) + (\mathrm{bias}(\hat{\theta}_n))^2 \tag{10}
-$$</p>
 <p>However, this statement in reality is impossible to happen. Due to, irreducible error is not due to the model being "wrong" or "unstable." It arises because real-world outcomes include randomness that features do not capture.
-Hence, in practical, equation provided $(22.10.4)$ is true and could understand by follwing explaination:</p>
+Hence, in practical, equation provided $(22.10.4)$ is true and could understand by following explaination:</p>
 <p>$$
 \mathrm{MSE}(\hat{\theta}_n, \theta)
 = \underbrace{\textrm{Var}(\hat{\theta}_n)}_{\text{Variance}} + \underbrace{(\mathrm{bias}(\hat{\theta}_n))^2}_{\text{Bias}^2} + \underbrace{\operatorname{Var}(\theta)}_{\text{Irreducible error}} .
@@ -8942,7 +8899,7 @@ $$
 = 0. \tag{10}
 $$</p>
 <p><strong>8.</strong>
-Variance, Var$(aY)=a^2$,Var$(Y)$, using $(7)$:
+Variance, $\operatorname{Var}(aY)=a^2$, $\operatorname{Var}(Y)$, using $(7)$:
 $$
 \operatorname{Var}(\tilde{\theta})
 = 4\,\operatorname{Var}(\bar{X}_n)
