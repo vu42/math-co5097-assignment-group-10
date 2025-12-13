@@ -11,6 +11,126 @@ style: |
   }
 ---
 # Statistics
+MSE & Bias-Variance Trade-off
+---
+---
+1. The _true parameter_ is $\theta$ of given population
+2. $\hat{\theta}_n$ is an estimator of $\theta$ that depends on a sample of size $n$.
+4. $\mu_n$ mean value of estimator.
+
+---
+From $(22.10.1)$ in the part of MSE, 
+$$
+\begin{aligned}
+
+\mathrm{MSE}(\hat{\theta}_n, \theta) 
+&= E\left[(\hat{\theta}_n - \theta)^2\right] \\[6pt]
+&= E\left[((\hat{\theta}_n - \mu_n) + (\mu_n - \theta))^2\right] \\[6pt]
+&= E[(\hat{\theta}_n - \mu_n)^2] + 2\,E[(\hat{\theta}_n - \mu_n)(\mu_n - \theta)] + E[(\mu_n - \theta)^2] \\[6pt]
+&= E[(\hat{\theta}_n - \mu_n)^2] + 2\,E[\hat{\theta}_n - \mu_n]\,E[\mu_n - \theta] + E[(\mu_n - \theta)^2] \\[6pt]
+
+\end{aligned}
+$$
+
+---
+Having,
+$$
+\mu_n = E[\hat{\theta}_n] 
+$$
+
+And, 
+$$
+\mathrm{bias}(\hat{\theta}_n) = E[\hat{\theta}_n - \theta] 
+= E[\hat{\theta}_n] - \theta
+= \mu_n - \theta 
+$$
+
+From $(22.10.3)$,
+$$
+\textrm{Var}(\hat{\theta}_n) = E[(\hat{\theta}_n - E[\hat{\theta}_n])^2] = E[(\hat{\theta}_n - \mu_n)^2]
+$$
+
+Having, $\mu_n$ and $\theta$ are both constant, thus, 
+$$ 
+E[\mu_n - \theta] = \mu_n - \theta 
+$$ 
+$$ 
+E[(\mu_n - \theta)^2] = (\mu_n - \theta)^2 = (\mathrm{bias}(\hat{\theta}_n))^2
+$$
+From having $\mu_n$, thus,
+$$
+E[\hat{\theta}_n - \mu_n] = E[\hat{\theta}_n] - \mu_n = \mu_n - \mu_n = 0
+$$
+---
+From $(22.10.1)$ in the part of MSE, 
+$$
+\begin{aligned}
+
+\mathrm{MSE}(\hat{\theta}_n, \theta) 
+&= E[(\hat{\theta}_n - \mu_n)^2] + 2\,E[\hat{\theta}_n - \mu_n]\,E[\mu_n - \theta] + E[(\mu_n - \theta)^2] \\[6pt]
+&= \textrm{Var}(\hat{\theta}_n) + (\mathrm{bias}(\hat{\theta}_n))^2 \\[6pt]
+
+\end{aligned}
+$$
+However, this statement in reality is impossible to happen. Cause irreducible error is not due to the model being "wrong" or "unstable." It arises because real-world outcomes include randomness that features do not capture.
+Hence, in practical, equation provided $(22.10.4)$ is true and could understand by follwing explaination:
+
+$$
+\mathrm{MSE}(\hat{\theta}_n, \theta)
+= \underbrace{\textrm{Var}(\hat{\theta}_n)}_{\text{Variance}} + \underbrace{(\mathrm{bias}(\hat{\theta}_n))^2}_{\text{Bias}^2} + \underbrace{\operatorname{Var}(\theta)}_{\text{Irreducible error}} 
+$$
+---
+
+This identity is the foundation of the bias–variance trade-off.
+
+- **$Bias^2$** quantifies _systematic error_: how far the average model prediction is from the true function. 
+- **Variance** quantifies _instability_: reflects sensitivity to random fluctuations in the training data. 
+- **Irreducible error**  quantifies *intrinsic noise*: randomness in the outcome that cannot be explained by features, even if the true function $f$ were known.
+
+---
+
+**Why this is called a "trade-off":**
+
+In practice, model design often involves choosing complexity (e.g., number of parameters, depth of a tree, regularization strength). 
+
+Model complexity affects bias and variance in opposite directions.
+
+- **Simpler models** tend to have **higher bias** but **lower variance**.
+- **More complex models** tend to have **lower bias** but **higher variance**.
+
+Because improving one component can worsen the other, model selection is a balancing act: 
+1. Reducing bias without exploding variance.
+2. Reducing variance without oversimplifying.
+
+---
+
+**High bias**: underfitting and lack of flexibility occurs when the model class is too restrictive to represent the true relationship between features and outcomes.
+
+- **Example pattern:** A linear model fitted to a strongly nonlinear relationship.
+- **Consequence:** Even with large datasets, the model remains systematically wrong.
+
+This is commonly referred to as **underfitting** (or *lack of flexibility*): The model cannot capture higher-dimensional or nonlinear structure, so its predictions remain consistently off target.
+
+---
+
+**High variance**: overfitting and poor generalization occurs when a model is overly flexible relative to the available data.
+
+
+- **Example pattern:** A very deep decision tree trained on a small dataset.
+- **Consequence:** The model fits not only signal but also noise, and small changes in training data lead to large changes in the learned model.
+
+This is commonly referred to as **overfitting** and leads to **poor generalization**: performance appears strong on training data but degrades on new data.
+
+
+**Practical Keynotes**
+
+- When **MSE** is  large, investigate whether the dominant source is bias (underfitting), variance (overfitting).
+
+- Tuning model complexity and regularization is fundamentally about navigating the bias–variance trade-off.
+
+
+---
+# Statistics
 Hypothesis Testing & Confusion Matrix
 ---
 ---
